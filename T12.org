@@ -1,0 +1,127 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *NCBI Databases and Quality Control*
+** *A Brief Introduction To NCBI: Small Reads Archive (Sra)*
++ [[https://trace.ncbi.nlm.nih.gov/Traces/trace.cgi][SRA_trace_archive]]
++ [[https://trace.ncbi.nlm.nih.gov/Traces/trace.cgi?view=statistics][SRA_trace_archive_statistics]]
++ [[https://www.ncbi.nlm.nih.gov/sra][Sequence_read_archive]]
++ [[https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=toolkit_doc][SRA_Documentation]]
++ Sra_working_examples:
+  + [[https://www.ncbi.nlm.nih.gov/sra/?term=tetrahymena][Tetrahymena]]
+  + [[https://www.ncbi.nlm.nih.gov/sra/?term=Neurospora+crassa][Neurospora crassa]]
+  + [[https://www.ncbi.nlm.nih.gov/sra/?term=Saccharomyces+cerevisiae][Saccharomyces cerevisiae]]
+  + [[https://www.ncbi.nlm.nih.gov/sra/?term=Homo+sapiens][Homo sapiens]]
+** *Introduction To Bioprojects*
++ [[https://www.ncbi.nlm.nih.gov/bioproject][Bioproject]]
++ [[https://www.ncbi.nlm.nih.gov/bioproject/docs/faq/][FAQ]]
++ [[https://www.ncbi.nlm.nih.gov/books/NBK169438/][Overview]]
++ [[https://www.ncbi.nlm.nih.gov/bioproject/browse/][Browse]]
+** *Introduction To Biosamples*
++ [[https://www.ncbi.nlm.nih.gov/biosample/][BioSample]]
++ [[https://www.ncbi.nlm.nih.gov/biosample/docs/submission/faq/][FAQ]]
++ [[https://www.ncbi.nlm.nih.gov/books/NBK169436/][Overview]]
+** *[[https://sra-explorer.info/][Introduction To SRA Explorer]]*
+*** *An Example*
++ [[https://www.ncbi.nlm.nih.gov/bioproject/PRJNA428526][Pervasive, coordinated protein level changes driven by transcript...]]
+** *Small Reads Quality Control (QC) Files Fundamentals*
+*** *Single or Unpaired Reads:*
+| [[./00Data/T12Data/01_SRQC01.png]] |
+*** *Paired Reads:*
++ *Unsplit Files:*
+  | [[./00Data/T12Data/02_SRQC02.png]] |
++ *Single Interleaved Files:*
+  | [[./00Data/T12Data/03_SRQC03.png]] |
++ *Split Files:*
+  | [[./00Data/T12Data/04_SRQC04.png]] |
++ *Split Files After Quality Control:*
+  | [[./00Data/T12Data/05_SRQC05.png]] |
+  |--------------------------------|
+  | *Which results in:*            |
+  |--------------------------------|
+  | [[./00Data/T12Data/06_SRQC06.png]] |
+*** *Logical Steps:*
++ Download the sra file
++ Process Downloaded files with SRA Toolkit using *fastq-dump* either:
+  + Preserving reads in one file or
+  + Splitting reads into two files
++ Upload the files to Galaxy and/or to your working directory
++ In Galaxy: *Groom* the files
++ Get Reads Statistics
+  + Count the number of reads
+  + Make sure length is right
++ Run FastQC
+  | [[./00Data/T12Data/FastQC_seq_qual.png]] |
+  + [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/][FastQC_WebSite]]
+  + [[https://www.youtube.com/watch?v=bz93ReOv87Y][Video]]
++ Compute Quality Statistics
++ Determine the Reads Size Distribution
++ Split the reads, if necessary
+  + FASTQ splitter on joined paired end reads
+  + By barcodes: Barcode Splitter
++ Trim Non-Native Bases, if needed
+  + Remove *Ns* bases
+    + By Removig reads carrying Ns
+    + By trimming reads and then determining read size
++ Remove artifacts: Remove sequencing artifacts
++ Remove adaptors
+  + Using *[[https://cutadapt.readthedocs.io/en/stable/][Cutadapt]]*
+    | [[./00Data/T12Data/cutadapt.png]] |
+    + [[http://journal.embnet.org/index.php/embnetjournal/article/view/200][Cutadapt Removes Adapter Sequences From High-Throughput Sequencing Reads]]
+    + [[https://cutadapt.readthedocs.io/en/stable/guide.html][Manual]]
+  + Using *[[http://www.usadellab.org/cms/?page=trimmomatic][Trimmomatic]]*
+    | [[./00Data/T12Data/trimmomatic01.png]] |
+    | [[./00Data/T12Data/trimmomatic02.png]] |
+    + [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4103590/][Trimmomatic: a flexible trimmer for Illumina sequence data]]
+    + [[http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf][Manual]]
+  + Using *[[https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/][Trim Galore]]*
++ Filter reads by Quality Score
++ Prepare reads for assembly:
+  + FASTQ interlacer on paired end reads
+  + Run KmerGenie k-mer histograms analysis
+# * *PRACTICAL EXAMPLES:*
+# + We are going to process the following files:
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# | Dataset | SRA Accession Number | Run        | Description                                                          | Files:            |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |       1 | [[http://www.ncbi.nlm.nih.gov/sra/?term=SRX040240][SRX040240]]            | SRR097405  | /Tetrahymena thermophila/ micronucleus sequence                      |                   |
+# |         |                      |            |                                                                      | SRR097405.fastq   |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |         |                      |            | /Tetrahymena thermophila/ micronucleus sequence                      | SRR097405_1.fastq |
+# |         |                      |            |                                                                      | SRR097405_2.fastq |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |       2 | [[http://www.ncbi.nlm.nih.gov/sra/?term=SRX691982][SRX691982]]            | SRR1564847 | Single-molecule correlated chemical probing of RNA                   |                   |
+# |         |                      |            |                                                                      | SRR1564847.fastq  |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |       3 | [[http://www.ncbi.nlm.nih.gov/sra/?term=SRX099287][SRX099287]]            | SRR350087  | /Tetrahymena borealis/ genome sequencing 10kb Jump Sequencing        |                   |
+# |         |                      |            |                                                                      | SRR350087.fastq   |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |       4 | [[http://www.ncbi.nlm.nih.gov/sra/?term=SRX099497][SRX099497]]            | SRR350448  | /Tetrahymena elliotti/ Transcriptome Sequencing 10kb Jump Sequencing |                   |
+# |         |                      |            |                                                                      | SRR350448.fastq   |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |         |                      |            | /Tetrahymena elliotti/ Transcriptome Sequencing 10kb Jump Sequencing | SRR350448_1.fastq |
+# |         |                      |            |                                                                      | SRR350448_2.fastq |
+# |         |                      |            |                                                                      | SRR350448_3.fastq |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# |       5 | [[http://www.ncbi.nlm.nih.gov/sra/?term=SRX152734][SRX152734]]            | SRR536826  | /Tetrahymena malaccensis/ Transcriptome Sequencing                   |                   |
+# |         |                      |            |                                                                      | SRR536826.fastq   |
+# |---------+----------------------+------------+----------------------------------------------------------------------+-------------------|
+# + In Ada:
+#  + In the directory:
+#  : /scratch/group/biol647/zShared_data/T14
+#  + You will find 10 FastQ compressed files and a script. These files are described in the =Practical Examples= section of today's lecture notes
+#  + Your task is:
+#    + Follow my directions...
+#   # + Generate a directory:
+#   # : /scratch/group/biol647/DB19S02_xx/T14_Work
+#   # + Copy the script to this directory
+#   # + Inside this directory run FastQC for all the files located in the
+#   #   =/scratch/group/biol647/zShared_data/T14=, using a modified
+#   #   version of the script present in the shared directory
+#   # + Finally, you need to copy your script into a newly-generated =T14_Work= directory located in your Git Repository
+#   # : /scratch/group/biol647/DB19S01B_xx/DB19S01B_00/DB190410.Homework
+#   # + Finally =commit= the new data present in your repository
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

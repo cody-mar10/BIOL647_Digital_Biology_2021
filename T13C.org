@@ -1,0 +1,163 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Mapping And Alignment*
+** *MAPPING WITH BOWTIE: INTRODUCTION*
+  + Mapping small reads a great way to go to understand a highly related genomes
+  + Traditional sequence alignment algorithms (e.g., blast) cannot be scaled to align millions of reads
+  + We need to utilise programs that utilize genome indexing algorithms such as Burrows-Wheeler for ultrafast and memory-efficient alignment
+  + Existing methods have a high computational cost or simply do not work
+    + years-CPU versus hs-CPU cost
+  + Bowtie employs a Burrows-Wheeler index -- novel approach based on:
+    + Mathematics
+    + Computer Sciences
+    + Clean example of theoretical research in the area of data compression applied to computational genomics
+  + Burrows-Wheeler developed their ideas before small-reads sequencing was available
+  + Bowtie uses a small memory footprint
+  + Bowtie is flexible
+  + Bowtie is an essential component of the *Tuxedo Pipeline or Tuxedo Suite*
+  + [[http://bowtie-bio.sourceforge.net/manual.shtml][BOWTIE MANUAL]]
+  + [[http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml][BOWTIE2 MANUAL]]
+*** *Bowtie*
+    | [[./00Data/T13Data/bowtie01.png]] |
+
+  + Anatomy of an Example Hypothetical Bowtie command:
+    : bowtie                = Program name
+    : -p 1                  = Use one core
+    : -t                    = Time. Print the amount of wall-clock time taken by each phase
+    : -a                    = Report ALL valid alignments
+    : -v 0                  = No mismatches. In -v mode, alignments may have no more than either 0, 1, 2, or 3 mismatches
+    : --best                = Give me your best alignment
+    : --strata              = Report the total number of alignment for the entire alignment
+    : -m 1                  = -m 1 instructs bowtie to refrain from reporting any alignments
+    :                         for reads having more than 1 reportable alignments
+    :                         Use -1 for no limit
+    :                         -->This has profound implications for your results<--
+    : --max                 = Write all reads with a number of valid alignments exceeding the limit set 
+    :                         with the -m option to a file (--max)
+    : --un                  = Write all reads that could not be aligned to a file
+    : --al                  = aligned_reads.fastq. Write aligned reads to a file (not available in the Galaxy web-interface)
+    : --sam                 = Print alignments in SAM format (default)
+    : --sam-nohead          = Suppress the header in the output SAM file 
+    : --chunkmbs 1028       = Memory management option
+    : Genome01.fna          = Genome (Indexed)
+    : -q SRR770514.fastq    = Query in FastQ format
+  + Bowtie Mapping Logic:
+    + The first step in any Bowtie alignment is building the Bowtie index
+    + The second is to decide which mode to to use. Bowtie has two mapping modes ~-v~ and ~-n~
+    + The ~-v~ and ~-n~ option *are mutually exclusive with each other*
+  + Mapping Mode "~n~" (From the Bowtie Manual)
+    + When the ~-n~ option is specified (which is the default), bowtie determines which
+      alignments are valid according to the following policy, which is similar to MAQ's default
+      policy
+      + Alignments may have no more than ~n~ mismatches (where ~n~ is a number 0-3, set with ~-n~)
+        in the first ~l~ bases (where ~l~ is a number 5 or greater, set with ~-l~) on the
+        high-quality (left) end of the read. The first ~l~ bases are called the "seed"
+      + The sum of the Phred quality values at all mismatched positions (not just in the seed)
+        may not exceed ~E~ (set with -e). Where qualities are unavailable (e.g. if the reads are
+        from a FASTA file), the Phred quality defaults to 40.
+    + Again, The ~-n~ option is mutually exclusive with the ~-v~ option
+    + If there are many possible alignments satisfying these criteria, Bowtie gives preference
+      to alignments with fewer mismatches and where the sum from criterion 2 is smaller. When
+      the ~--best~ option is specified, Bowtie guarantees the reported alignment(s) are "best"
+      in terms of these criteria (criterion 1 has priority), and that the alignments are
+      reported in best-to-worst order. Bowtie is somewhat slower when ~--best~ is specified
+    + Note that Maq internally rounds base qualities to the nearest 10 and rounds qualities
+      greater than 30 to 30. To maintain compatibility, Bowtie does the same. Rounding can be
+      suppressed with the ~--nomaqround~ option
+    + Bowtie is not fully sensitive in ~-n~ 2 and ~-n~ 3 modes by default. In these modes
+      Bowtie imposes a "backtracking limit" to limit effort spent trying to find valid
+      alignments for low-quality reads unlikely to have any. This may cause bowtie to miss some
+      legal 2- and 3-mismatch alignments. The limit is set to a reasonable default (125 without
+      --best, 800 with --best), but the user may decrease or increase the limit using the
+      --maxbts and/or -y options. -y mode is relatively slow but guarantees full sensitivity
+    + Example of a "Mapping Mode "~n~" Command:
+      : -n = 0 and 3 (separate tracks)--Maximum number of mismatches permitted in the "seed"
+      : -m = 1 and 100 (separate tracks)
+      : -bowtie_index : Load Genome Index
+      : -q or -f (fastq or fasta, as appropriate)
+      : -1 first_file
+      : -2 second_file
+    + Again, note that although the ~--strata~ and ~--best~ options do not apply in paired-end
+      mode, you should use these parameters to map the singletons
+    + Importantly, it does NOT hurt to include them when mapping in paired-end mode
+  + Mapping Mode "~v~" (From the Bowtie Manual)
+    + In ~-v~ mode, alignments may have no more than ~v~ mismatches, where ~v~ may be a number
+      from 0 through 3 set using the ~-v~ option. Quality values are ignored. The ~-v~ option
+      is mutually exclusive with the ~-n~ option
+    + If there are many legal alignments, Bowtie gives preference to alignments with fewer
+      mismatches. When the ~--best~ option is specified, Bowtie guarantees the reported
+      alignment(s) are "best" in terms of the number of mismatches, and that the alignments are
+      reported in best-to-worst order. Bowtie is somewhat slower when ~--best~ is specified
+    + Example of a "Mapping Mode "~v~" Command:
+      :   -v = 0 and 3 (separate tracks)
+      :   -m = 1 and 100 (separate tracks)
+      :   -bowtie_index : Load Genome Index
+      :   -q or -f (fastq or fasta, as appropriate)
+      :   -1 first_file
+      :   -2 second_file
+    + Note that although the ~--strata~ and ~--best~ options do not apply in paired-end mode,
+      you should use these parameters to map the singletons
+  + Importantly, it does NOT hurt to include them when mapping in paired-end mode
+  + Bowtie Output:
+    + The output of Bowtie is either a *SAM* or it binary equivalent *BAM* file
+*** *IMPORTANT MAPPING VERSUS MISMATCHES CONSIDERATIONS*
+    | [[./00Data/T13Data/23.png]] |
+    | [[./00Data/T13Data/24.png]] |
+*** *Bowtie2*
+    | [[./00Data/T13Data/bowtie02.png]] |
+    | [[./00Data/T13Data/bowtie03.png]] |
+    | [[./00Data/T13Data/bowtie04.png]] |
+*** *Commands Examples*
+**** *Building Bowtie Index Command*
+     #+BEGIN_SRC bash
+     bowtie-build \
+     BRCA2_WildType.fa \
+     BRCA2_WildType.fa;
+     #+END_SRC
+**** *Minimal Bowtie Mapping Command*
+***** *Single-End Reads*     
+     #+BEGIN_SRC bash
+     bowtie \
+     -x BRCA2_WildType.fa \
+     -q \
+     BRCA2_WildType_PE_Run01_1.fq,BRCA2_WildType_PE_Run01_2.fq \
+     -S WildType_x_WildType_Reads.sam;
+     #+END_SRC
+***** *Paired-End Reads*     
+     #+BEGIN_SRC bash
+     bowtie \
+     -x BRCA2_WildType.fa \
+     -q \
+     -1 BRCA2_WildType_PE_Run01_1.fq \
+     -2 BRCA2_WildType_PE_Run01_2.fq \
+     -S WildType_x_WildType_Reads.sam;
+     #+END_SRC
+**** *Building Bowtie2 Index Command*
+     #+BEGIN_SRC bash
+     bowtie2-build \
+     BRCA2_WildType.fa \
+     BRCA2_WildType.fa;
+     #+END_SRC
+**** *Minimal Bowtie2 Mapping Command*
+***** *Single-End Reads*
+     #+BEGIN_SRC bash
+     bowtie2 \
+     -x BRCA2_WildType.fa \
+     -q \
+      BRCA2_WildType_PE_Run01_1.fq,BRCA2_WildType_PE_Run01_2.fq \
+     -S WildType_x_WildType_Reads.sam;
+     #+END_SRC
+***** *Paired-End Reads*
+     #+BEGIN_SRC bash
+     bowtie2 \
+     -x BRCA2_WildType.fa \
+     -q \
+     -1 BRCA2_WildType_PE_Run01_1.fq \
+     -2 BRCA2_WildType_PE_Run01_2.fq \
+     -S WildType_x_WildType_Reads.sam;
+     #+END_SRC
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

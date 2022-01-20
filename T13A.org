@@ -1,0 +1,261 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Mapping And Alignment*
+** *Introduction*
+   | [[./00Data/T13Data/BIOL647_E01/Slide01.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide02.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide03.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide04.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide05.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide06.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide07.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide08.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide09.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide10.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide11.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide12.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide13.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide14.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide15.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide16.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide17.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide18.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide19.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide20.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide21.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide22.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide23.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide24.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide25.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide26.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide27.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide28.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide29.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide30.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide31.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide32.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide33.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide34.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide35.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide36.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide37.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide38.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide39.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide40.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide41.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide42.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide43.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide44.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide45.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide46.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide47.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide48.png]] |
+** *Mapping Qualities When Considering Base Calling Errors*
++ Modified from the Mapping qualities Blog from David Tangs Blog
++ To model base calling errors we can use the Binomial distribution;
+  if we expect there to be 1 base calling error in 100 bps, We can
+  calculate the probability of an error for a read of 25 nt as such
+  using R
+
+#+BEGIN_SRC R
+ R
+ #Probability of success (1 error in 100 bases) = 0.99
+ #Number of trials (each base is a trial) = 25
+
+ #no base calling errors, i.e. 25 successes
+ dbinom(x = 25, size=25, prob=0.99)
+ #[1] 0.7778214
+
+ #one base calling error, i.e. 24 successes
+ dbinom(x = 24, size=25, prob=0.99)
+ #[1] 0.1964195
+
+ #two base calling errors, i.e. 23 successes
+ dbinom(x = 23, size=25, prob=0.99)
+ #[1] 0.02380843
+#+END_SRC
+
++ If we expect 1 base calling error in 100 bps, the probability of
+  making two base calling errors in 25 bps is quite low.
++ Calculating the posterior probability that the best alignment is
+  actually correct in R:
+
+#+BEGIN_SRC R
+ #the posterior probability that the best alignment is correct
+ p = 0.99
+ dbinom(x = 25, size=25, prob=p) / (dbinom(x = 25, size=25, prob=p) + (5 * dbinom(x = 24, size=25, prob=p)))
+ #[1] 0.4419643
+#+END_SRC
+
++ In reality base calling is much more accurate than 1 error in 100
+  bases, which is a Phred quality score of 20. If we changed the base
+  calling error rate to 1 in 1000 (Phred score of 30):
+
+#+BEGIN_SRC R
+ p = 0.999
+ dbinom(x = 25, size=25, prob=p) / (dbinom(x = 25, size=25, prob=p) + (5 * dbinom(x = 24, size=25, prob=p)))
+ #[1] 0.88879
+#+END_SRC
+
++ Then the posterior probability that the best alignment is correct
+  improves to 0.88879. Using a base calling error rate of 1 in 10000
+  (Phred score of 40):
+
+#+BEGIN_SRC R
+ p = 0.9999
+ dbinom(x = 25, size=25, prob=p) / (dbinom(x = 25, size=25, prob=p) + (5 * dbinom(x = 24, size=25, prob=p)))
+ #[1] 0.9876531
+#+END_SRC
+
++ This improves the probability to 0.9876531, which is a ~0.012
+  probability that the alignment is incorrect, which is around the
+  same ball park to the BWA mapping quality of 16, which is a 0.025
+  probability that the alignment is incorrect.
+
+** *Fundamentals Of Small Reads Mapping*
++ *FIRST FUNDAMENTAL CONCEPT OF READ MAPPING*
+  | [[./00Data/T13Data/01_Alignments01.png]] |
++ *SECOND FUNDAMENTAL CONCEPT OF READ MAPPING*
+  | [[./00Data/T13Data/02_Alignments02.png]] |
++ *EXAMPLES OF CONCORDANT AND NON-CONCORDANT ALIGNMENTS*
+  | [[./00Data/T13Data/03_Alignments03.png]] |
++ *MATE-PAIRS 101*
+  | [[./00Data/T13Data/04_MatePairs101.png]] |
++ *[[./00Data/T13Data/05_MatePairs102.pdf][MATE-PAIRS 102]]*
++ *[[https://www.ncbi.nlm.nih.gov/pubmed/24105367][USING MATE PAIRS: EXAMPLE01]]*
++ *[[https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-launches-first-in-world-mate-pair-sequencing-test-that-locates-breakpoints-of-chromosome-rearrangements/][USING MATE PAIRS: EXAMPLE02]]*
++ *LARGE INSERTIONS AND DELETIONS RULES*
+  + *FIRST RULE OF READ MAPPING*
+    | [[./00Data/T13Data/06_Mapping01.png]] |
+  + *SECOND RULE OF READ MAPPING*
+    | [[./00Data/T13Data/07_Mapping02.png]] |
+  + *THIRD RULE OF READ MAPPING*
+    | [[./00Data/T13Data/08_Mapping03.png]] |
+** *SAM format: a text-based standard for representing sequence alignments*
++ *[[http://samtools.github.io/hts-specs/SAMv1.pdf][FORMAT DEFINITION]]*
++ *SAM FLAGS 101*
+  | [[./00Data/T13Data/09_SAMFlags01.png]] |
++ FLAGS
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  | Field | Description                                                                                                                                   |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     1 | Name of read that aligned                                                                                                                     |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     2 | Sum of all applicable flags. Flags relevant to Bowtie are:                                                                                    |
+  |       | `1`  `The read is one of a pair`                                                                                                              |
+  |       | `2`  `The alignment is one end of a proper paired-end alignment`                                                                              |
+  |       | `4`  `The read has no reported alignments`                                                                                                    |
+  |       | `8`  `The read is one of a pair and has no reported alignments`                                                                               |
+  |       | `16` `The alignment is to the reverse reference strand`                                                                                       |
+  |       | `32` `The other mate in the paired-end alignment is aligned to the reverse reference strand`                                                  |
+  |       | `64` `The read is the first (#1) mate in a pair`                                                                                              |
+  |       | `128``The read is the second (#2) mate in a pair`                                                                                             |
+  |       | Thus, an unpaired read that aligns to the reverse reference strand will have flag 16                                                          |
+  |       | A paired-end read that aligns and is the first mate in the pair will have flag 83 (= 64 + 16 + 2 + 1)                                         |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     3 | Name of reference sequence where alignment occurs                                                                                             |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     4 | 1-based offset into the forward reference strand where leftmost character of the alignment occurs                                             |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     5 | Mapping quality                                                                                                                               |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     6 | CIGAR string representation of alignment                                                                                                      |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     7 | Name of reference sequence where mate's alignment occurs                                                                                      |
+  |       | Set to = if the mate's reference sequence is the same as this alignment's, or * if there is no mate                                           |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     8 | 1-based offset into the forward reference strand where leftmost character of the mate's alignment occurs. Offset is 0 if there is no mate     |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |     9 | Inferred fragment length. Size is negative if the mate's alignment occurs upstream of this alignment                                          |
+  |       | Size is 0 if the mates did not align concordantly                                                                                             |
+  |       | However, size is non-0 if the mates aligned discordantly to the same chromosome                                                               |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |    10 | discordantly to the same chromosomediscordantly to the same chromosomeRead sequence (reverse-complemented if aligned to the reverse strand)   |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |    11 | ASCII-encoded read qualities (reverse-complemented if the read aligned to the reverse strand)                                                 |
+  |       | The encoded quality values are on the Phred quality scale and the encoding is ASCII-offset by 33 (ASCII char `!` ), similarly to a FASTQ file |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+  |    12 | Optional fields. Fields are tab-separated                                                                                                     |
+  |       | Bowtie2 outputs zero or more of these optional fields for each alignment, depending on the type of the alignment:                             |
+  |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
+   
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | Code       | Meaning                                                                                                                    |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *AS:i:<N>* | Alignment score                                                                                                            |
+     #    |            | Can be negative                                                                                                            |
+     #    |            | Can be greater than 0 in --local mode (but not in --end-to-end mode)                                                       |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *XS:i:<N>* | Alignment score for the best-scoring alignment found other than the alignment reported                                     |
+     #    |            | Can be negative                                                                                                            |
+     #    |            | Can be greater than 0 in --local mode (but not in --end-to-end mode)                                                       |
+     #    |            | Only present if the SAM record is for an aligned read and more than one alignment was found for the read                   |
+     #    |            | Note that, when the read is part of a concordantly-aligned pair, this score could be greater than AS:i                     |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *YS:i:<N>* | Alignment score for opposite mate in the paired-end alignment                                                              |
+     #    |            | Only present if the SAM record is for a read that aligned as part of a paired-end alignment                                |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *XN:i:<N>* | The number of ambiguous bases in the reference covering this alignment                                                     |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *XM:i:<N>* | The number of mismatches in the alignment                                                                                  |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *XO:i:<N>* | The number of gap opens, for both read and reference gaps, in the alignment                                                |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *XG:i:<N>* | The number of gap extensions, for both read and reference gaps, in the alignment                                           |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *NM:i:<N>* | The edit distance; that is, the minimal number of one-nucleotide edits (substitutions, insertions and deletions)           |
+     #    |            | needed to transform the read string into the reference string                                                              |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *YF:Z:<S>* | String indicating reason why the read was filtered out. See also: Filtering. Only appears for reads that were filtered out |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *YT:Z:<S>* | Value of UU indicates the read was not part of a pair                                                                      |
+     #    |            | Value of CP indicates the read was part of a pair and the pair aligned concordantly                                        |
+     #    |            | Value of DP indicates the read was part of a pair and the pair aligned discordantly                                        |
+     #    |            | Value of UP indicates the read was part of a pair but the pair failed to alig either concordantly or discordantly          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
+     #    | *MD:Z:<S>* | A string representation of the mismatched reference bases in the alignment                                                 |
+     #    |            | See SAM format specification for details                                                                                   |
+     #    |            | Only present if SAM record is for an aligned read                                                                          |
+     #    |------------+----------------------------------------------------------------------------------------------------------------------------|
++ *SAM FLAGS 102*
+  | [[./00Data/T13Data/10_SAMFlags02.png]] |
++ *SAM FLAGS 103*
+  | [[./00Data/T13Data/11_SAMFlags03.png]] |
++ *[[https://broadinstitute.github.io/picard/explain-flags.html][DECODING SAM FLAGS]]*
++ *Mandatory Fields in the SAM Format:*
+  | [[./00Data/T13Data/12.png]] |
++ *[[http://www.htslib.org/doc/samtools.html][MANUAL]]*
++ *[[./00Data/T13Data/13_SAMTOOLSPaper.pdf][SAM_TOOLS]]*
+  + *EDIT DISTANCE AND CIGAR REPRESENTATION*
+    | [[./00Data/T13Data/14.png]] |
+    | [[./00Data/T13Data/15.png]] |
+    | [[./00Data/T13Data/16.png]] |
+    | [[./00Data/T13Data/17.png]] |
+    | [[./00Data/T13Data/18.png]] |
+** *Sequence Alignment Software*
+   |-----------+--------------------+-----------------+-----------------------|
+   | Aligner   | Approach           | Applications    | Availability          |
+   |-----------+--------------------+-----------------+-----------------------|
+   | BWA-mem   | Burrows-Wheeler    | DNA, SE, PE, SV | open-source           |
+   | Bowtie2   | Burrows-Wheeler    | DNA, SE, PE, SV | open-source           |
+   | Novoalign | hash-based         | DNA, SE, PE     | free for academic use |
+   | TopHat    | Burrows-Wheeler    | RNA-seq         | open-source           |
+   | STAR      | hash-based (reads) | RNA-seq         | open-source           |
+   | GSNAP     | hash-based (reads) | RNA-seq         | open-source           |
+   |-----------+--------------------+-----------------+-----------------------|
+*** *KEY ALIGNMENT PAPERS*
+  + *[[./00Data/T13Data/19_BWA_Paper.pdf][BWA]]*
+  + *[[./00Data/T13Data/20_BOWTIE_Paper.pdf][Bowtie]]*
+  + *[[./00Data/T13Data/21_BOWTIE2_Paper.pdf][Bowtie2]]*
+  + *[[./00Data/T13Data/22_Skylake_Algorithm.pdf][Skylake Algorithm]]*
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

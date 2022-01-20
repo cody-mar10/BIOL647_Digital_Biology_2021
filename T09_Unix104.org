@@ -1,0 +1,698 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+# PLEASE DELETE SCRIPT17!!
+* *Unix104: Fundamentals of Scripting*
+** *Understanding Bash script syntax*
++ Variables
++ Arguments
++ Flow-control logic
+** *Building Bash Scripts*
+*** *To Shebang or not to Shebang*
++ [[http://en.wikipedia.org/wiki/Shebang_(Unix)][What is The Shebang]]
+  + In computing, a shebang is the character sequence consisting of
+    the characters number sign and exclamation mark (#!) at the
+    beginning of a script. It is also called sha-bang
+  + *BASH*
+    : #!/bin/bash <-Hashbang or Shebang, tells the shell that this is a Bash script and that it should be run as such
+    : #!          <-Hash-bang
+    : /bin/bash   <-PATH to Bash executable
+  + *PYTHON*
+    : #!/bin/python
+    or
+    : #!/bin/python3
+  + *PERL*
+    : #!/bin/perl
+  #+BEGIN_SRC bash
+    mkdir /vol_b/DB2021_0xx/Digibio/DB2021_xx/T09_Unix104
+    cd /vol_b/DB2021_0xx/Digibio/DB2021_xx/T09_Unix104
+  #+END_SRC
+*** *Introducing for loops*
+    #+BEGIN_SRC bash
+      for i in 1 2 3;do echo $i;done
+      for i in {1..10};do echo $i;done
+      for i in {1..100..2};do echo $i;done
+    #+END_SRC
+**** + *01script.sh*
+***** Add the following code to a file we are going to call *01script.sh* file:
+      #+BEGIN_SRC bash
+	for i in {1..50};do echo "echo \"$i\"";done     # Note how we are escaping special characters
+	for i in {1..50};do echo "echo \"$i\"";done > 01script.sh
+	#+END_SRC
+***** *Execute file as follows:*
+      #+BEGIN_SRC bash
+	./01script.sh
+	bash ./01script.sh
+#+END_SRC
+***** Now add as a header to the file:
+      #+BEGIN_SRC bash
+	#!/path/to/bash
+#+END_SRC
+***** And make file *01script.sh* executable:
+      #+BEGIN_SRC bash
+	chmod 744 01script.sh
+#+END_SRC
+***** And execute file as follows:
+      #+BEGIN_SRC bash
+	./01script.sh
+	bash ./01script.sh
+#+END_SRC
+*** *Working with variables*
+**** + *02script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 02script.sh
+       a=hello           # Note No Spaces
+       b="Good Morning"  # Note the quotes
+       c=42
+       # To use these variables we call them with the '$' sign
+       echo $a
+       echo $b
+       echo $c
+#+END_SRC
+Save *02script.sh* and Run
+**** + *03script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 03script.sh
+       a=hello           # Note No Spaces
+       b="Good Morning"  # Note the quotes
+       c=44
+       # To use these variables we call them with the '$' sign
+       echo $a
+       echo $b
+       echo $c
+
+       echo "$b! I have $c apples" <-NOTE This
+#+END_SRC
+Save *03script.sh* and Run
+*** *Adding attributes to variables*
+**** + *04script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 04script.sh
+       declare -i d=var1      # d is an integer
+			      # -i   The variable is to be treated as an integer
+       echo $d                # Prints '0' because it is empty
+       declare -i d=12
+       echo $d                # Prints '12' because variable 'd' was declared to be '12'
+       d=hello	      	       # Variable defined as a 'non-integer'
+       echo $d                # Prints '0' because variable 'd' can only be an integer
+
+       echo "------------"
+
+       declare -r e=var2      # e is read-only
+			      # -r   Make names readonly
+       echo $e                # Prints 'var2' because it is read-only
+
+       declare -r e
+       e=13
+       echo $e                # Fails to assign a new value to the variable 'e' because it is read-only
+#+END_SRC
+Save *04script.sh* and Run
+*** *Built-in variables*
+**** + *05script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 05script.sh
+       echo $HOME          # Returns Home directory
+       echo $PWD           # Returns current directory
+       echo $MACHTYPE      # Returns machine type
+       echo $HOSTNAME      # Returns system name
+       echo $BASH_VERSION  # Returns Bash version
+       echo $SECONDS       # Returns the number of seconds the Bash session has run
+			   # Inside a script it counts the seconds since the script started (timing)
+       echo $0             # Returns the name of the script
+#+END_SRC
+Save *05script.sh* and Run
+*** *Command substitution*
+**** + *06script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 06script.sh
+       d=$(pwd)
+       echo $d
+#+END_SRC
+Save *06script.sh* and Run
+**** + *07script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 07script.sh
+       a=$(ping -c 1 google.com | grep 'bytes from' | cut -d = -f 4)
+       echo "The ping was $a"
+#+END_SRC
+Save *07script.sh* and Run
+*** *Arithmetic operations*
+: (( expression ))
+: val=$(( expression )) # Note the '$' sign
+: |----------------|----------|
+: | Operation      | Operator |
+: |----------------|--------- |
+: | Exponentiation | $a ** $b |
+: | Multiplication | $a * $b  |
+: | Division       | $a / $b  |
+: | Modulo         | $a % $b  |
+: | Addition       | $a + $b  |
+: | Subtraction    | $a - $b  |
+: |----------------|----------|
+**** + *08script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 08script.sh
+       d=2
+       e=$((d+2))
+       echo "The value of e is $e"
+#+END_SRC
+Save *08script.sh* and Run
+**** + *09script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 09script.sh
+       d=2
+       e=$((d+2))
+       echo "The value of e is $e"
+       ((e++))
+       echo "The value of e is $e"
+       ((e--))
+       echo "The value of e is $e"
+       ((e+=5))
+       echo "The value of e is $e"
+       ((e*=3))
+       echo "The value of e is $e"
+       ((e/=3))
+       echo "The value of e is $e"
+       ((e-=5))
+       echo "The value of e is $e"
+#+END_SRC
+Save *09script.sh* and Run
+**** + *10script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 10script.sh
+       f=(1/3)
+       echo "The value of e is $f"
+#+END_SRC
+Save *10script.sh* and Run
+**** + *11script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 11script.sh
+       f="1/3"
+       echo "The value of e is $f"
+       g=$(echo "1/3" | bc -l)
+       echo "The value of g is $g"
+#+END_SRC
+Save *11script.sh* and Run
+*** *Comparing values*
+: [[ expression ]]
+: 0 = True
+: 1 = False
+**** *Comparison operators*
+: |--------------------------|----------------|
+: | Operation                | Operator       |
+: |--------------------------|----------------|
+: | Less than                | [[ $a < $b  ]] |
+: | Greater than             | [[ $a > $b  ]] |
+: | Less than or equal to    | [[ $a <= $b ]] |
+: | Greater than or equal to | [[ $a >= $b ]] |
+: | Equal                    | [[ $a == $b ]] |
+: | Not equal                | [[ $a != $b ]] |
+: |--------------------------|----------------|
+**** + *12script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 12script.sh
+	[[ "cat" == "cat" ]]
+	echo $?
+ 
+	[[ "cat" = "dog" ]]
+	echo $?
+#+END_SRC
+Save *12script.sh* and Run
+**** + *13script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 13script.sh
+	# 20 and 100 are being compared as strings. Lexical comparison
+	# NOT as numerical values
+	[[ 20 > 100 ]]
+	echo $?
+#+END_SRC
+Save *13script.sh* and Run
+**** *Arithmetic operators*
+: |--------------------------+-----------------|
+: | Operation                | Operator        |
+: |--------------------------+-----------------|
+: | Less than                | [[ $a -lt $b ]] |
+: | Greater than             | [[ $a -gt $b ]] |
+: | Less than or equal to    | [[ $a -le $b ]] |
+: | Greater than or equal to | [[ $a -ge $b ]] |
+: | Equal                    | [[ $a -eq $b ]] |
+: | Not equal                | [[ $a -ne $b ]] |
+: |--------------------------+-----------------|
+**** + *14script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 14script.sh
+	# Lexical comparison
+	[[ 20 -gt 100 ]]
+	echo $?
+#+END_SRC
+Save *14script.sh* and Run
+**** *Logical operators*
+: |--------------+-----------------------|
+: | Operation    | Operator              |
+: |--------------+-----------------------|
+: | Logical AND  | [[ $a && $b ]]        |
+: | Logical OR   | [[ $a pipe pipe $b ]] |
+: | Logical NOT  | [[ ! $a ]]            |
+: | Is Null?     | [[ -z $a ]]           |
+: | Is Not Null? | [[ -n $A ]]           |
+: |--------------+-----------------------|
+**** + *15script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 15script.sh
+	# Lexical comparison
+	a=""
+	b="cat"
+	[[ -z $a && -n $b ]]
+	echo $?
+#+END_SRC
+Save *15script.sh* and Run
+*** *Working with strings*
+Using the command-line:
+: a="Hello"
+: b="World"
+: c=$a$b
+: echo $c
+: echo ${c}
+: echo ${#c}      <-To Find out how long the string is
+: d=${c:3}        <-To request a substring
+: echo $d
+: e=${c:3:4}      <-To request a specific number of characters after that position
+:                   asking at character 3 and asking for 4 characters after that
+: echo $e
+: echo ${c}
+: echo ${#c}
+: echo ${c: -10}  <-To request the last 10 letters
+: echo ${c: -8}   <-To request the last 8 letters
+: echo ${c: -8:2} <-To request the last 2 letters of the last 8 letters
+To replace text in a string with some other text
+: fruit="apple banana banana cherry"
+: echo ${fruit/banana/durian}   <-To replace text in a string with some other text
+:                                 in this case banana with durian or the first instance of the search
+: echo ${fruit//banana/durian}  <-To replace all instances of banana with durian
+: echo ${fruit/#apple/durian}   <-To replace the term only of the term is the very beggining of the string
+: echo ${fruit/#banana/durian}    and it only works if the term is at the beggining of the string
+: echo ${fruit/%cherry/durian}  <-To replace the term only of the term is the very end of the string
+: echo ${fruit/%banana/durian}    and it only works if the term is at the end of the string
+: echo ${fruit/c*/durian}       <-Using matching terms
+**** *Using basename*
+: "$(basename $File .fq)"
+# : ${var#*SubStr}     # will drop beginning of string up to first occurrence of 'SubStr'
+# : ${var##*SubStr}    # will drop beginning of string up to last occurrence of 'SubStr'
+# : ${var%SubStr*}     # will drop part of string from last occurrence of 'SubStr' to the end
+# : ${var%%SubStr*}    # will drop part of string from first occurrence of 'SubStr' to the end
+: a="SRA12345.fastq"
+: echo $a
+: echo $a $(basename $a)
+: echo $a $(basename $a fastq)
+: echo $a $(basename $a fastq)fq
+**** *Using Parameter Expansion*
+     : param="racecar"
+     + Extraction: offset = 3, length = 2
+       : ${param:offset:length}
+       : echo ${param}
+       : echo ${param:3}
+       : echo ${param:3:2}
+     + Removal from left edge: pattern = "*c"
+       : ${param#pattern}
+       : echo ${param#*c}
+       : echo ${param##*c}
+     + Removal from right edge: pattern = "c*"
+       : ${param%pattern}
+       : echo ${param%c*}
+       : echo ${param%%c*}
+*** *Coloring and styling text*
+**** Colored text (using ANSI codes)
+: echo -e '\033[34;42mColor Text\033[0m'
+:      -e <-Allows escaping characters
+:      \033[34;42m    <-Escaped sequence
+:      Color Text     <-String to print out
+:      \033[0m        <-Reset the colors
+**** *Colored text (ANSI)*
+: |---------+------------+------------|
+: | Color   | Foreground | Background |
+: |---------+------------+------------|
+: | Black   |         30 |         40 |
+: | Red     |         31 |         41 |
+: | Green   |         32 |         42 |
+: | Yellow  |         33 |         43 |
+: | Blue    |         34 |         44 |
+: | Magenta |         35 |         45 |
+: | Cyan    |         36 |         46 |
+: | White   |         37 |         47 |
+: |---------+------------+------------|
+White on Black
+: echo -e '\033[37;40mColor Text\033[0m'
+Black on Red:
+: echo -e '\033[30;41mColor Text\033[0m'
+Green on Black
+: echo -e '\033[32;40mColor Text\033[0m'
+Red on White
+: echo -e '\033[31;47mColor Text\033[0m'
+Blue on Yellow
+: echo -e '\033[34;43mColor Text\033[0m'
+**** *Styled text (ANSI)*
+: |---------------+-------|
+: | Style         | Value |
+: |---------------+-------|
+: | No Style      |     0 |
+: | Bold          |     1 |
+: | Low Intensity |     2 |
+: | Underline     |     4 |
+: | Blinking      |     5 |
+: | Reverse       |     7 |
+: | Invisible     |     8 |
+: |---------------+-------|
+Error Message
+: echo -e '\033[5;31;42mERROR: \033[0m'
+: echo -e '\033[5;31;42mERROR: \033[0m\033[31;40mSomething went wrong\033[0m'
+*** *Working with arrays*
+**** Simple arrays (Using the command-line)
+: a=()                          # <-Empty array
+: b=("apple" "banana" "cherry") # <-Array with 3 elements
+: echo ${b[2]}
+: b[5]="kiwi"
+: b+=("mango")
+: echo ${b[@]}
+: echo ${b[@]: -1}              # <-To request the last element of the array
+**** + *16script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 16script.sh
+	a=()
+	b=("apple" "banana" "cherry")
+
+	echo ${b[0]}
+	echo ${b[1]}
+	echo ${b[2]}
+	echo ${!b[@]}
+        echo ${b[@]/apple/manzana}
+
+	b[5]="kiwi"
+	b+=("mango")
+
+	echo ${b[@]}
+	echo ${b[@]: -1}  #<-To request the last element of the array
+#+END_SRC
+Save *16script.sh* and Run
+**** Associative arrays
+: declare -A myarray
+: myarray[color]=Blue
+: myarray["office" "building"]="TAMU Biology"
+: echo ${myarray["office" "building"]} is ${myarray[color]}
+*** *Reading and writing text files*
+**** + *17script.sh: Calling a file within a script*
+: echo -e "Command01\nCommand02\nCommand03\nCommand04\nCommand05" > 17script.txt
+#+BEGIN_SRC bash
+  #!/bin/bash
+  # 17script.sh
+  while read i; do echo "$i";done < 17script.txt
+#+END_SRC
+Save *17script.sh* and Run
+*** *Using here documents*
++ Used a lot for entering documentation
++ Avoids multiple 'echo' commands
+**** + *18script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 18script.sh
+       # EndofText Must be unique
+
+       cat << EndofText
+       Line01
+       Line02
+       Line03
+       EndofText
+
+       cat <<EOF
+       Text01
+       Text02
+       Text03
+       EOF
+#+END_SRC
+Save *18script.sh* and Run
+**** + *19script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 19script.sh
+       cat <<EndofText
+       Line01
+       Line02
+       Line03
+       EndofText
+       exit 0
+#+END_SRC
+Save *19script.sh* and Run
+*** *Control Structures*
+**** + *Testing truth conditions with the if keyword*
+: 'if' statatement
+: if [[ expression ]] or if (( expression )) or if statement
+: if [[ expression ]]; then echo "True"; else echo "False"; fi
+: if [[ 2 -gt 3 ]]; then echo "True"; else echo "False"; fi
+: if [[ 2 -gt 1 ]]; then echo "True"; else echo "False"; fi
+***** + Testing files existence
+: if [[ ! -f test ]]; then echo "The file test does not exist";fi
+: if [[ ! -f test ]]; then echo "The file test does not exist";else echo "The file test does exist";fi
+: touch test
+: if [[ ! -f test ]]; then echo "The file test does not exist";else echo "The file test does exist";fi
+***** + Testing files content
+: if [[ ! -s test ]]; then echo "The file test is empty";else echo "The file test is not empty";fi
+: echo "bla bla" > test
+: if [[ ! -s test ]]; then echo "The file test is empty";else echo "The file test is not empty";fi
+*** *Working with while and until loops*
+**** + *20script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 20script.sh
+       i=0
+       while [[ $i -le 10 ]];do
+	   echo i:$i
+	   ((i+=1))
+	   done
+#+END_SRC
+Save *20script.sh* and Run
+**** + *21script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 21script.sh
+       i=0
+       while [[ $i -le 10 ]];do
+	   echo i:$i
+	   ((i+=1))
+	   done
+       j=0
+ 
+       j=0
+       until [[ $j -ge 10 ]];do
+	   echo j:$j
+	   ((j+=1))
+	   done
+    #+END_SRC
+Save *21script.sh* and Run
+*** *Advanced for loops*
++ "C" Style
+  #+BEGIN_SRC bash
+    for (( i=1; i<=10; i++)); do echo $i;done
+  #+END_SRC
++ With Arrays
+  #+BEGIN_SRC bash
+    arr=("Line01" "Line02" "Line03")
+    for i in ${arr[@]};do echo $i;done
+    for i in ${arr[0]};do echo $i;done
+    for i in ${arr[2]};do echo $i;done
+  #+END_SRC
+*** *Selecting behavior using case*
+**** + *22script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 22script.sh
+       a="dog"
+       case $a in
+		cat)       echo "Feline";;
+		dog|puppy) echo "Canine";;
+		,*)         echo "No Match";;
+       esac
+     #+END_SRC
+Save *22script.sh* and Run
+*** *Using Functions*
+: To avoid repeating code blocks use functions
+**** + *23script.sh*
+     #+BEGIN_SRC bash
+       #!/bin/bash
+       # 23script.sh
+       function test {
+	   echo "Robert"
+       }
+       echo "And now I am greating!"
+       test
+     #+END_SRC
+Save *23script.sh* and Run
+**** + *24script.sh*
+     #+BEGIN_SRC bash
+     #!/bin/bash
+     # 24script.sh
+     function numberthings {
+     i=1
+     for f in $@;do
+    echo $i: $f
+    ((i+=1))
+    done
+    }
+    numberthings $(ls)
+    #+END_SRC
+Save *24script.sh* and Run
+*** *Interacting with the user*
+**** + *25script.sh: Arguments*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 25script.sh
+	echo $0 # Name of the script
+	echo $1
+	echo $2
+	echo $@ # All variables
+	echo $# # Number of variables
+        #+END_SRC
+Save *25script.sh* and Run
+**** + *26script.sh: Flags*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 26script.sh
+	while getopts u:p: option;do
+	    case $option in
+		u) user=$OPTARG;;
+		p) pass=$OPTARG;;
+	    esac
+	done
+	echo "User: $user / Passwd: $pass"
+#+END_SRC
+Save *26script.sh* and Run
+: bash 26script.sh -u rod -p secret
+: bash 26script.sh -p secret -u rod
+**** + *27script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 27script.sh
+	while getopts u:p:ab option;do
+	    case $option in
+		u) user=$OPTARG;;
+		p) pass=$OPTARG;;
+		a) echo "Got the A Flag";;
+		b) echo "Got the B Flag";;
+	    esac
+	done
+	echo "User: $user / Passwd: $pass"
+#+END_SRC
+Save *27script.sh* and Run
+: bash 27script.sh -u rod -p secret
+: bash 27script.sh -p secret -u rod -a
+: bash 27script.sh -p secret -u rod -b
+: bash 27script.sh -p secret -u rod -ab
+**** + *28script.sh*
+      #+BEGIN_SRC bash
+	#!/bin/bash
+	# 28script.sh
+	while getopts :u:p:ab option;do
+	    case $option in
+	u) user=$OPTARG;;
+	p) pass=$OPTARG;;
+	a) echo "Got the A Flag";;
+	b) echo "Got the B Flag";;
+	?) echo "I do not know what $OPTARG is!";;
+	    esac
+	done
+	echo "User: $user / Passwd: $pass"
+#+END_SRC
+Save *28script.sh* and Run
+: bash 28script.sh -u rod -p secret
+: bash 28script.sh -p secret -u rod -a
+: bash 28script.sh -p secret -u rod -b
+: bash 28script.sh -p secret -u rod -z 
+**** + *29script.sh*
+Making the script "read" files
+
+Generate a file called "02file.sh" containing:
+#+BEGIN_SRC bash
+  #!/bin/bash
+  args=("$@");
+  FILENAME00=${args[0]}
+  FILENAME01=${args[1]}
+  FILENAME02=${args[2]}
+
+  echo $FILENAME00
+  echo $FILENAME01
+  echo $FILENAME02
+
+  exit 0
+#+END_SRC
+Save *29script.sh* and Run
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: Rodolfo Aramayo* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |
+
+# The break statement tells Bash to leave the loop straight away. It
+# may be that there is a normal situation that should cause the loop
+# to end but there are also exceptional situations in which it should
+# end as well. For instance, maybe we are copying files but if the
+# free disk space get's below a certain level we should stop copying.
+
+# copy_files.sh
+
+#     #!/bin/bash
+#     # Make a backup set of files
+#     for value in $1/*
+#     do
+#     used=$( df $1 | tail -1 | awk '{ print $5 }' | sed 's/%//' )
+#     if [ $used -gt 90 ]
+#     then
+#     echo Low disk space 1>&2
+#     break
+#     fi
+#     cp $value $1/backup/
+#     done
+
+# The continue statement tells Bash to stop running through this
+# iteration of the loop and begin the next iteration. Sometimes there
+# are circumstances that stop us from going any further. For instance,
+# maybe we are using the loop to process a series of files but if we
+# happen upon a file which we don't have the read permission for we
+# should not try to process it.
+
+#     #!/bin/bash
+#     # Make a backup set of files
+#     for value in $1/*
+#     do
+#     if [ ! -r $value ]
+#     then
+#     echo $value not readable 1>&2
+#     continue
+#     fi
+#     cp $value $1/backup/
+#     done
+
+    # #!/bin/bash
+    # # A simple menu system
+    # names='Kyle Cartman Stan Quit'
+    # PS3='Select character: '
+    # select name in $names
+    # do
+    # if [ $name == 'Quit' ]
+    # then
+    # break
+    # fi
+    # echo Hello $name
+    # done
+    # echo Bye

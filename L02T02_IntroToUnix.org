@@ -1,0 +1,52 @@
+ # #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Introduction To GNU/Unix/Linux*
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide01.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide02.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide03.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide04.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide05.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide06.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide07.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide08.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide09.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide10.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide11.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide12.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide13.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide14.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide15.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide16.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide17.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide18.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide19.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide20.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide21.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide22.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide23.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide24.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide25.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide26.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide27.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide28.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide29.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide30.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide31.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide32.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide33.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide34.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide35.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide36.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide37.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide38.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide39.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide40.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide41.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide42.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide43.png]] |
+| [[./00Data/L02/T02_BIOL647-Linux-Perez/Slide44.png]] |
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

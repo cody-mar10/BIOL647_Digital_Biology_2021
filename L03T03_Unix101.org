@@ -1,0 +1,223 @@
+ # #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Unix101*
++ About Unix OS
+ + The Unix operating system is made up of three parts; the kernel, the shell and the programs
++ The Kernel
+ + The kernel of UNIX is the hub of the operating system: it allocates
+   time and memory to programs and handles the filestore and
+   communications in response to system calls
++ The Shell
+ + The shell acts as an interface between the user and the kernel
+ + When a user logs in, the login program checks the username and password, and then starts another program called the shell
+ + The shell is a command line interpreter (CLI). It interprets the commands the user types in and arranges for them to be carried out
+ + The commands are themselves programs: when they terminate, the shell gives the user another prompt
+ + There are different shells that can be used. To see which one you are using, type:
+   : echo $SHELL
++ *$SHELL* is a system variable that is set for each user
++ The Terminal
+ + Is the program we use to talk to the shell
++ About Unix Philosophy
+ + This is the Unix philosophy:
+  + *Write programs that do one thing and do it well*
+  + *Write programs to work together*
+  + *Write programs to handle text streams, because that is a universal interface*
+    | [[./00Data/L03/T01_Unix101/01.png]] |
+** *Commands*
++ Anatomy:
+  | [[./00Data/L03/T01_Unix101/02.png]] |
++ Command Name
+  + Options
+    + -v, --version, -h, --help
+    + - Leading Single Dash  
+	Can be "combined"
+     : ls -a -t or ls -at   
+    + -- Leading Double Dashes  
+	 Can not be "combined"
+    + Exit: =q=, =x=, =ctrl + q=, =ctrl + x=, or =ESC=
+    + Force quit: =ctrl + c= or close window (but process may keep running)
+  + Examples:
+   : $ dir
+   : $ dir -l
+   : $ dir -lt
+   : $ dir -l --time=access
++ About *echo*
+  : echo "Hello World"
+  : which echo
+  : /bin/echo "Hello World"
+  : whereis echo
+  : whatis echo
++ How does the system *knows* where *echo* program is?
+** *Variables*
+   | [[./00Data/L03/T01_Unix101/03.png]] |
+   | [[./00Data/L03/T01_Unix101/04.png]] |
+   | [[./00Data/L03/T01_Unix101/05.png]] |
+   | [[./00Data/L03/T01_Unix101/06.png]] |
+   | [[./00Data/L03/T01_Unix101/07.png]] |
+   | [[./00Data/L03/T01_Unix101/08.png]] |
+   | [[./00Data/L03/T01_Unix101/09.png]] |
+   | [[./00Data/L03/T01_Unix101/10.png]] |
+** *The PATH Variable*
++ The way Unix manages where to find programs is by using the *PATH* variable or environmental parameter
+  : echo $PATH
++ Unix will test each listed directory for the presence/absence of the invoked program and traverse the directories until it finds it
++ Re-defining *PATH*
+  : PATH=tatata #Would completely obliterate the functionality of the shell terminal you are running
+  :             #To recover you must log-off and log-in again
++ Deleting *PATH* variables 
+  : which ls
+  : PATH=/usr/bin # This deletes many other environmental PATH variables
+  : which ls      #So now ls does not work, because it cannot be found
+  : ls            #To recover you must log-off and log-in again
+   + Behavior only valid for the session in question 
++ Adding *PATH* variables
+  : PATH=/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/username/software/bin # This adds a PATH
+** *Basic Unix Documentation*
++ A "man page" is a text file containing a help document
+  | [[./00Data/L03/T01_Unix101/11.png]] |
++ Most commands have their own man page
+  | [[./00Data/L03/T01_Unix101/12.png]] |
+  | [[./00Data/L03/T01_Unix101/13.png]] |
++ Accessed with the *man* command
+  + The layout of a man page follows certain conventions
+    + Each man page is assigned a section # ((of a virtual UNIX manual) to which it belongs
+    + Each page itself is divided into sections
+    + The man command can search the NAME sections for keywords (-k option)
+    + The -M option can force man to read pages installed in non-default locations
+      : $ man ssh
+      : $ man rsync
+  | [[./00Data/L03/T01_Unix101/14.png]] |
++ Listing Directory Contents
+  | [[./00Data/L03/T01_Unix101/15.png]] |
++ Changing Directories
+  | [[./00Data/L03/T01_Unix101/16.png]] |
+  | [[./00Data/L03/T01_Unix101/17.png]] |
++ Moving or Re-naming Files
+  | [[./00Data/L03/T01_Unix101/18.png]] |
++ Deleting Files
+  | [[./00Data/L03/T01_Unix101/19.png]] |
++ Copying Files
+  | [[./00Data/L03/T01_Unix101/20.png]] |
+** *Other Useful Commands*
++ *type* Display's a command type:
+  : $ type [command]
++ *which* Display An Executable's Location:
+  : $ which [command]
++ *apropos* Display Appropriate Commands:
+  : $ apropos [command]
++ *whatis*  Display A Very Brief Description Of A Command:
+  : $ whatis [command]
++ *info* Displays A Program's Info Entry:
+  : $ info [command]
+** *Peeking at and inside files*
++ *less* 
+  : $ less
++ *more* 
+  : $ more
++ *file* 
+  : $ file
+# + [[http://beginnerlinuxtutorial.com/help-tutorial/basic-linux-commands/linux-more-and-less-commands/][Differences between 'less' and 'more']]
++ Command history
+  : $ history
++ Creating symbolic links
+  : $ ln [options] [target] [link name]
+  : $ ln -s foo foolink
+** *[[http://www.tldp.org/LDP/abs/html/io-redirection.html][Redirection:]] (Standard IN/OUT/ERR)*
+   | [[./00Data/L03/T01_Unix101/21.png]] |
++ *OPERATORS*
+  | [[./00Data/L03/T01_Unix101/22.png]] |
++ *COMMAND_OUTPUT >*
+  + Redirect stdout to a file
+  + Creates the file if not present, otherwise overwrites it
+  + Creates a file containing a listing of the directory tree:
+    : $ ls -lR > dir-tree.list
++ *: > filename*
+  + The ">" truncates file "filename" to zero length
+  + If file not present, creates zero-length file (same effect as "*touch*")
+  + The ":" serves as a dummy placeholder, producing no output
++ *> filename*
+  + The ">" truncates file "filename" to zero length
+  + If file not present, creates zero-length file (same effect as "*touch*")
+  + Same result as "*: > filename*" above, but this does not work with some shells
++ *COMMAND_OUTPUT >>*
+  + Redirect "*stdout*" to a file
+  + Creates the file if not present, otherwise appends to it
+  + Redirect "*stdout*" to file "filename":
+    : $ 1>filename
+  + Redirect and append "*stdout*" to file "filename":
+    : $ 1>>filename
+  + Redirect "*stderr*" to file "filename":
+    : $ 2>filename
+  + Redirect and append "*stderr*" to file "filename":
+    : $ 2>>filename
+  + Redirect both **`stdout` and "*stderr*" to file "filename":
+    : $ &>filename
+  + Replaces "*stdin*" with myfiles:
+    : $ ls < myfiles
+** *Combining Commands (Piping)*
+   | [[./00Data/L03/T01_Unix101/23.png]] |
+   | [[./00Data/L03/T01_Unix101/24.png]] |
++ Passes output from cmd1 to cmd2:
+  : $ cmd1 | cmd2
++ First executes cmd1, then cmd2:
+  : $ cmd1 ; cmd2
++ Executes cmd2 only on cmd1 success
+  : $ (cmd1 ; cmd2) 
+  : $ cmd1 && cmd2
++ Executes cmd2 only on cmd1 fail
+  : $ cmd1 || cmd2
+** *The UNIX Filesystem*
+   | [[./00Data/L03/T01_Unix101/25.png]] |
+   | [[./00Data/L03/T01_Unix101/26.png]] |
+   | [[./00Data/L03/T01_Unix101/27.png]] |
+  : $ cd /
+  : $ tree
+  : tree -df
++ A Closer Look at  the *ls* Command
+   | [[./00Data/L03/T01_Unix101/28.png]] |
++ File Ownership  and Permissions
+  | [[./00Data/L03/T01_Unix101/29.png]] |
+  | [[./00Data/L03/T01_Unix101/30.png]] |
+  + [[http://ss64.com/bash/chmod.html][Permissions]]
++ The *chmod* Command
+  | [[./00Data/L03/T01_Unix101/31.png]] |
++ Disk Space
+  : du
+  : du -hd 0 .
+  : du -hd 1 .
+  : df
+  : df -h
++ Aliases
+  : ll
+  : alias ll
+  : alias ll="ls"
+  : ll
+  : unalias ll
++ To correct for this last command we might need to *reload* the SHELL Environmental variables
+  : source ~/.bashrc
+  : . ~/.bashrc
+** *Process Signals*
+   | [[./00Data/L03/T01_Unix101/32.png]] |
+   | [[./00Data/L03/T01_Unix101/33.png]] |
+   | [[./00Data/L03/T01_Unix101/34.png]] |
+   | [[./00Data/L03/T01_Unix101/35.png]] |
+   | [[./00Data/L03/T01_Unix101/36.png]] |
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |
+# + [[http://www.lynda.com/Linux-tutorials/Use-pipes-connect-commands-together/435539/482248-4.html][Pipes]]
+# + [[http://www.lynda.com/Linux-tutorials/Understand-how-commands-structured/435539/482234-4.html][Understand how commands are structured]]
+# + [[http://www.lynda.com/Linux-tutorials/Write-commands-shell-prompt/435539/482235-4.html][Write commands in a shell at the prompt]]
+# + [[http://www.lynda.com/Linux-tutorials/Helpful-keyboard-shortcuts-terminal/435539/482236-4.html][Helpful keyboard shortcuts in the terminal]]
+# + [[http://www.lynda.com/Linux-tutorials/Find-help-commands/435539/482237-4.html][Find help for commands]]
+# + [[http://www.lynda.com/Linux-tutorials/Explore-navigate-filesystem/435539/482239-4.html][Explore and navigate the filesystem]]
+# + [[http://www.lynda.com/Linux-tutorials/little-more-about-ls/435539/482240-4.html][A little more about 'ls']]
+# + [[http://www.lynda.com/Linux-tutorials/Create-remove-folders/435539/482241-4.html][Create and remove folders]]
+# + [[http://www.lynda.com/Linux-tutorials/Copy-move-delete-files-folders/435539/482242-4.html][Copy, move, and delete files and folders]]
+# + [[http://www.lynda.com/Linux-tutorials/Find-files-from-command-line/435539/482243-4.html][Find files from the command line]]
+# + [[http://www.lynda.com/Linux-tutorials/Understand-user-roles-sudo/435539/482244-4.html][Understand user roles and sudo]]
+# + [[http://www.lynda.com/Linux-tutorials/Understand-file-permissions/435539/482245-4.html][Understand file permissions]]
+# + [[http://www.lynda.com/Linux-tutorials/Peek-files-cat-head-tail-less/435539/482249-4.html][Peek at files with cat, head, tail, and less]]
+# + [[http://www.lynda.com/Linux-tutorials/Stdin-stdout-stderr-output-redirection/435539/482255-4.html][Stdin, stdout, stderr, and output redirection]]

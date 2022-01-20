@@ -1,0 +1,525 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Unix103*
+** *Introduction to Regular Expressions*
++ Go to: [[https://regexr.com/][regexr.com]]
++ Select PCRE and Flags: global, multiline and extended
++ A Regular Expression is a pattern describing a certain amount of
+  text
+  + The ( ) { } [ ] . * ? + ^ $ are all *special characters*
+  + \ can be used to "escape" a special character, allowing that
+    special character (i.e., ( ) { } [ ] . * ? + ^ $), to be searched for
++ Copy and Paste the following Text:
+  : chrX      15561904        15562013        ENST00000252519.7_cds_0_0_chrX_15561905_r       0       -
+  : chrX      15564023        15564218        ENST00000252519.7_cds_1_0_chrX_15564024_r       0       -
+  : chrY      566252          566369          ENST00000252519.7_cds_2_0_chrX_15566253_r       0       -
+  : chrX      15567725        15567826        ENST00000252519.7_cds_3_0_chrX_15567726_r       0       -
+  : chrX      15570294        15570353        ENST00000252519.7_cds_4_0_chrX_15570295_r       0       -
+  : chrX      15571623        15571796        ENST00000252519.7_cds_5_0_chrX_15571624_r       0       -
++ "*\A*" matches the beginning of a string (but not an internal line)
+  : Regex:  \AchrX
++ "*\d*" matches a digit class, same as [0-9]
+  : Regex:  chr\d
+  : Regex:  chr\d\d
+  : Regex:  chr\d+
+  : Regex:  \t\d+\t
++ "*\D*" matches a non-digit
+  : Regex:  \D
++ "*\s*" matches a whitespace character
+  : Regex:  \s
+  : Regex:  \s+
++ "*\S*" matches anything BUT a whitespace
+  : Regex:  \S
++ "*\t*" matches a tab
+  : Regex:  \t
+  : Regex:  \t+
++ "*\w*" matches an alphanumeric character
+  : Regex:  \w
+  : Regex:  \w+
++ "*\W*" matches anything but an alphanumeric character
+  : Regex:  \W
++ "*\Z*" matches the end of a string(but not a internal line)
+  : Regex:  chrX\Z
++ "*{ n or n, or n,m }*" specifies an expected number of repetitions of the preceding pattern
+  + "*{n}*" The preceding item is matched exactly n times.
+  + "*{n,}*" The preceding item is matched n or more times.
+  + "*{n,m}*" The preceding item is matched at least n times but not more than m times.
++ "*[ ... ]*" creates a character class
+  + Within the brackets, single characters can be placed
+  + A dash (-) may be used to indicate a range such as a-z
++ "*.*" Matches any single character except a newline
++ "***" The preceding item will be matched zero or more times
++ "*?*" The preceding item is optional and matched at most once
++ *+* The preceding item will be matched one or more times
++ "*^*" has two meaning:
+  + matches the beginning of a line or string
+  + indicates negation in a character class
+      + For example, *[^...]* matches every character except the ones inside brackets
++ "*$*" matches the end of a line or string
++ "*|*" Separates alternate possibilities
++ "*( .. )*" groups a particular pattern
+  : Regex: ^(chr.)\t([0-9]+)\t+([0-9]+)\t+ENST([0-9]+)
+** *Regular Expressions (regexp) and GREP (Global Regular Expression Print)*
+*** [[https://youtu.be/NTfOnGZUZDk][Where GREP Came From - Computerphile]]
+*** *Regular Expressions (regexp)*
++ Describes text and text patterns
++ Do not have to contain literal text
++ Comprised of metacharacters
++ Metacharacters are processed by 'parsing'
+*** *Text Searching versus Grep Searching*
++ Text searching is literal, whereas GREP searching is abstract and conditional
++ Text is finite - GREP is flexible
++ Text looks for characters (what) - GREP looks for locations (where and what)
++ [[https://thenewstack.io/brian-kernighan-remembers-the-origins-of-grep/?utm_medium=email&utm_source=topic+optin&utm_campaign=awareness&utm_content=20180728+prog+nl&mkt_tok=eyJpIjoiWXpjMU1EWTFZVFl6TTJJMSIsInQiOiJGaVpzWXYxUTJvdnl5WXlmUUNsRmd0WW5LSGM2SXFaVVpNWGo3dng5XC9CcU84UEM1cXBhbWpGbHZcL3BEbXZ3dVpiVkhyK0ZGWXFuaG1TM3J3Sm1YeWJ3eTRFSWRUWkkyU1FYMkd3d2hHY0R4c1ZxcWJVUU01NlpEMnRSM0tVNWhqIn0%3D][History of GREP]]
++ Also known as Regular Expression Parser
++ Original command-line text search utility
+  + In sed (stream editor)
+    : g/re/p or global/regular expression/print
++ GREP remembers what it found and can be directed to re-use it
++ GREP searches for patterns and most text can be described as a pattern
+*** *Pattern Searching*
++ A Phone number as an example
+  : 979-694-1234             <- As 'mortals' see it
+  : \d\d\d-\d\d\d-\d\d\d\d   <-As GREP see it
+  : \d+-\d+-\d+
+
+  : cd /vol_b/username/Digibio/DB2021_xx #<-DB2021_xx is YOUR Git repository
+  : mkdir T08_Unix103 && cd T08_Unix103
+  : cp -v /vol_b/Shared/T08_Unix103/list.txt .
+
++ GREPping *list.txt*
+  : cat list.txt
+  : grep 111 list.txt or
+  : grep '111' list.txt or
+  : grep "111" list.txt or  <-Preferred
+  : cat list.txt | grep "111" or and so on...
+  + This returns the *lines* not only the *text*
++ To search in a text *insensitive* manner use the flag *-i*
+  : grep "Banana"
+  : grep "Apple"
+  : grep "Banana|Apple"
+  : grep -E "Banana|Apple"
+  : grep -E -i "Banana|Apple"
+  : grep -E -i -w "Banana|Apple"
+  : grep -E -i -v "Banana|Apple"
++ To search for text that *does not match* your text search pattern use the *-v* flag
+  : grep -E -i -v "Banana|Apple"
++ To search for *whole words* in your text search pattern use the *-w* flag
+  : grep -E -i  "Banana|Apple"
+  : grep -E -i -w "Banana|Apple"
++ To add number lines to your search use the *-n* flag
+  : cat list.txt | grep -n "111"
++ To *count* the number of hits use the *-c* flag
+  : cat list.txt | grep -c "111"
++ To *recursively* search for a given pattern (e.g., '111') inside the files of a directory use the *-R* flag
+  : grep -R "111" /vol_b/username/Digibio/DB2021_xx/T08_Unix103 *
+  + Flag -n = Prefix each line of output with the 1-based line number
+    : grep -R -n "111" /vol_b/username/Digibio/DB2021_xx/T08_Unix103 *
+  + Flag -h = Suppress the prefixing of file names on output
+    : grep -R -h "111" /vol_b/username/Digibio/DB2021_xx/T08_Unix103 *
+  + Flag -l = Suppress normal output; instead print the name of each
+    input file from which output would normally have been printed.  The
+    scanning will stop on the first match
+    : grep -R -l "111" /vol_b/username/Digibio/DB2021_xx/T08_Unix103 *
++ Understanding Character Classes or "[ ]"
+  : /a[xyz]c/    matches "axc" or "ayc" or "azc"
+  :              does not match "axyzc"
+  : /a[a-z]c/    can matche "abc"
+  : /a[a-zA-Z]c/ can matche "abc" or "aBc"  
+  : /a[^xyz]c/   does not match "axc" nor "ayc" nor "azc"
+  : /a[^a-z]c/   does not match "abc" nor "ayc" nor "azc"
++ In Summary, RegExps are:
+  + Symbols representing a text pattern
+  + Formal language interpreted by a regular expression processor (e.g., grep)
+  + Used for matching, searching and replacing text
+  + Are NOT a programming language
+  + Have a set of rules
+  + These rules tell the computer what to do
+  + Most programmming languages use regular expressions
+  + Most programmers probably used regular expressions the most, but they have no variables and you cannot add "1+"
+  + Are symbols to describe a text pattern
+  + A regexp 'matches' text if it describes the text
+  + Text 'matches' a regexp if it is correctly described by the regexp
++ The "*", Matches zero or more repeats of the previous item
+  : /ab*c/ matches "abc" or "abbbbbc" or "ac" but not "axc"
++ The "( )", Allows repeats Multiple Times
+  : /ab*c/   matches "abbbbc"
+  : /(ab)*c/ matches "ababababc"
++ Understanding *Greedy* Characters
+  + The quantifiers +, *, ? and {} are “greedy.” That is, they will
+    always make the longest possible match possible to a given
+    pattern, so if your pattern is E+(one or more E’s) and your text
+    contains “EEEE”, the pattern matches all the E’s at once, not just
+    the first one
+   : /<.*>     matches all of "<i>Italic Text</i>"
+   : /<[^>]*>/ matches only "<i>Italic Text</i>"
++ The wild-card character " . " Matches any character except a ‘hard’ line break
++ The wild-card character " ^ " Matches beginning of a line (unless used in a character class)
++ The wild-card character " $ " Matches end of line (unless used in a character class)
++ You can combine " ^ " and " $ " within a pattern to force a match to constitute an entire line
+  + Will only match “foo” on a line by itself, with no other characters
+   : ^foo$
++ Using Positional Assertions 
+  : cat list.txt | grep "111"
+  : cat list.txt | grep "^1"
+  : cat list.txt | grep "1$"
+  : cat list.txt | grep "12"
+  : cat list.txt | grep "12[34]"
+  : cat list.txt | grep -E "[[:digit:]]+2[34]"
++ Other Positional Assertions
+ | Escape | Matches                                          |
+ | \A     | only at the beginning of the document (as        |
+ |        | opposed to ^, which matches at the beginning     |
+ |        | of the document and also at the beginning of     |
+ |        | each line)                                       |
+ | \b     | any word boundary, defined as any position       |
+ |        | between a \w character and a \W character, in    |
+ |        | either order                                     |
+ | \B     | any position that is not a word boundary         |
+ | \z     | at the end of the document (as opposed to $,     |
+ |        | which matches at the end of the document and     |
+ |        | also at the end of each line)                    |
+ | \Z     | at the end of the document, or before a trailing |
+ |        | return at the end of the doc, if there is one    |
++ Matching Non-Printing Characters
+ | Character | Matches                             |
+ | \n        | ‘hard’ line break "new line"        |
+ | \r        | ‘hard’ line break "carriage return" |
+ | \t        | tab                                 |
+ | \f        | page break "form feed"              |
++ Other Special Character Classes
+ | Special character | Matches                                         |
+ | \s                | any whitespace character (space, tab, carriage  |
+ |                   | return, line feed, form feed)                   |
+ | \S                | any non-whitespace character (any character     |
+ |                   | not included by \s)                             |
+ | \w                | any word character (a-z, A-Z, 0-9, _, and some  |
+ |                   | 8-bit characters)                               |
+ | \W                | any non-word character (all characters not      |
+ |                   | included by \w, including line breaks)          |
+ | \d                | any digit (0-9)                                 |
+ | \D                | any non-digit character (including line breaks) |
++ Quantifiers Repeat Subpatterns
+ | Pattern    | Matches                                         |
+ | p*         | zero or more p’s                                |
+ | p+         | one or more p’s                                 |
+ | p?         | zero or one p’s                                 |
+ | p{COUNT}   | match exactly COUNT p’s, where COUNT is an      |
+ |            | integer                                         |
+ | p{MIN,}    | match at least MIN p’s, where MIN is an integer |
+ | p{MIN,MAX} | match at least MIN p’s, but no more than MAX    |
++ *[[https://regexr.com/][RegExr]]*
++ *[[http://www.rexegg.com/regex-quickstart.html][Regular Expressions Syntax]]*
++ *[[http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html][OPEN Group Base Specifications]]*
+------------
+** *Introduction to SED: Stream Editor*
+: Typical Command: sed 's/a/b/'
+:                       s=substitution
+:                       a=search string
+:                       b=replacement string
+: 
+: echo "upstream" | sed 's/up/down/' <-Find and Replace
+: echo "upstream and upward" | sed 's/up/down/'
+: echo "upstream and upward" | sed 's/up/down/g'
+: echo "upstream and upward" | sed 's:up:down:g'
+: echo "upstream and upward" | sed 's|up|down|g'
+: 
+: echo "during daytime we have sunlight" | sed 's/day/night/'
+: echo "during daytime we have sunlight" | sed -e 's/day/night/' -e 's/sun/moon/'
++ Using Regexp:
+  + To use extended Regexp:
+    : echo "who needs vowels?" | sed 's/[aeiou]/_/g'
+    : echo "who needs vowels?" | sed 's/[aeiou]+/_/g'    # <-Does not work (No 'E' Flag)
+    : echo "who needs vowels?" | sed -E 's/[aeiou]+/_/g' # <-Does work ('E' Flag Activated)
+  + Using Backreferences:
+    : echo "daytime" | sed    's/(...)time/\1light/'   # <-Does not work (No 'E' Flag)
+    : echo "daytime" | sed    's/\(...\)time/\1light/' # <-Does work (escaping parenthesis) 
+    : echo "daytime" | sed -E 's/(...)time/\1light/'   # <-Does work ('E' Flag Activated)
+  + Using RegExp
+    : echo "daytime" | sed -E 's/(.)time/\1light/'
+    : echo "daytime" | sed -E 's/(.+)time/\1light/'
+    : echo "FirstName LastName" | sed -E 's/([A-Za-z]+) ([A-Za-z]+)/\2, \1/'
+------------
+** *Introduction to AWK: Ai Aho, Peter Weinberger, and Brian Kernighan*
+*** [[https://youtu.be/W5kr7X7EG4o][AWK Is Still Very Useful | Brian Kernighan and Lex Fridman]]
++ AWK Records and Fields
+  + Each Record is a line of text (or a row)
+  + A Record consists of a series of Fields
+  + Fields are separated from each other by one or more white spaces, and/or TABs
+    | [[./00Data/L07/awk01.png]] |
+    | [[./00Data/L07/awk02.png]] |
++ AWK works best with text files
+  #+BEGIN_SRC awk
+  echo -e "\
+  Student01Name Student01LastName\n\
+  Student02Name Student02LastName\n\
+  Student03Name Student03LastName\n\
+  Student04Name Student04LastName\n\
+  Student05Name Student05LastName\n\
+  Student06Name Student06LastName\n\
+  Student07Name Student07LastName\n\
+  Student08Name Student08LastName\n\
+  Student09Name Student09LastName\
+  " > names.txt
+  #+END_SRC
+  #+BEGIN_SRC awk
+    awk '{print $2,$1}' names.txt
+  #+END_SRC
+   + ~awk~: Invokes awk 
+   + '~awk-program-itself~': Single apostrophe, because some of the characters are special to the shell
+   + ~{}~: Curly Braces tell awk to apply anything inside to the input
+   + ~print~: Print is a print command
+   + ~$2~: Specifies the second field on a line
+   + ~comma~: Specifies that the fields must be separated by a space. This is, it defines a FIELD SEPARATOR (FS) 
+   + ~$1~: Specifies the first field on a line
+  + To print the entire line or Record
+    #+BEGIN_SRC awk
+    awk '{print $0}' names.txt
+    #+END_SRC
+    or
+    #+BEGIN_SRC awk
+    awk '{print}' names.txt
+    #+END_SRC
+  + The command:
+    #+BEGIN_SRC awk
+    awk '{print $2 $1}' names.txt
+    #+END_SRC
+    + Results in a field concatenation
+  + The command:
+    #+BEGIN_SRC awk
+    awk '{print $2 ", " $1} names.txt
+    #+END_SRC
+   + Results in each field being separated by a comma
+  + The command:
+    #+BEGIN_SRC awk
+    awk '{print NF, $0}' names.txt
+    #+END_SRC
+    + Results in the number of Fields being printed
+  + Let's modify the file to have uneven number of fields:
+    #+BEGIN_SRC awk
+    echo -e "\
+    Student01Name Student01LastName Observations\n\
+    Student02Name Student02LastName\n\
+    Student03Name Student03LastName\n\
+    Student04Name Student04LastName Observations\n\
+    Student05Name Student05LastName\n\
+    Student06Name Student06LastName\n\
+    Student07Name Student07LastName\n\
+    Student08Name Student08LastName Observations\n\
+    Student09Name Student09LastName\
+    " > names.txt
+    
+    cat names.txt #To verify the new file content
+    #+END_SRC
+    + Now, we can select Records that have a given number of fields with the command:
+      #+BEGIN_SRC awk
+      awk 'NF==3{print NF, $0}' names.txt
+      #+END_SRC
+  + Observe that when you issue the command:
+    #+BEGIN_SRC awk
+    echo "one two three" | awk '{print $2}'
+    #+END_SRC
+    + You obtain the desired result because ~awk~ interprets the spaces present in the Record as field separators
+  + If you were to issue the following command:
+    #+BEGIN_SRC awk
+    echo "one,two,three" | awk '{print $2}'
+    #+END_SRC
+    + The command will not work because to ~awk~ there is no field 02 in the record
+  + Defining a field separator
+    + To correc the problem we observed above we will define the field separator as follows:
+      #+BEGIN_SRC awk
+      echo "one,two,three" | awk -F ',' '{print $2}'
+      #+END_SRC
+      or
+      #+BEGIN_SRC awk
+      echo "one,two,three" | awk -F , '{print $2}'
+      #+END_SRC
+      or
+      #+BEGIN_SRC awk
+      echo "one,two,three" | awk -F, '{print $2}'
+      #+END_SRC
+    + Note that now the command:
+      #+BEGIN_SRC awk
+      echo "one two three" | awk -F, '{print $2}'
+      #+END_SRC
+      + Will not work because ~awk~ is looking for commas, not spaces
+  + We can also use ~tabs~ as field separators:
+    #+BEGIN_SRC awk
+    echo -e "one\ttwo\tthree" | awk -F"\t" '{print $2}'
+    #+END_SRC
+  + We can also append text, as follows (compare the output of the following commands):
+    #+BEGIN_SRC awk
+    echo "hello hi" | awk -v hi=HELLO '{print $1,hi}'
+    #+END_SRC
+    or
+    #+BEGIN_SRC awk
+    echo "hello awk" | awk -v hi=HELLO '{print $1,hi}'
+    #+END_SRC
+    or
+    #+BEGIN_SRC awk
+    echo "hello" | awk -v hi=HELLO '{print $1,hi}'
+    #+END_SRC
+    or
+    #+BEGIN_SRC awk
+    echo "nice to meet you" | awk -v hi=HELLO '{print $1,hi}'
+    #+END_SRC
+  + Defining Fields in AWK
+    + AWK understands both spaces and ~tabs~ as fields separators
+      #+BEGIN_SRC awk
+      awk '{print $2}'
+      #+END_SRC
+    + Try:
+      : one[space]two[space]three
+      : one[tab]two[tab]three
+      : one[tab][tabl]two[space][space][tab]three
+    + When you define a Filed Separator, AWK stops recognizing the 'default' Field Separators
+      + Compare the following commands:
+	#+BEGIN_SRC awk
+	echo "one two,three four five,six" | awk -F , '{print $2}'
+        #+END_SRC
+	#+BEGIN_SRC awk
+	echo -e "one\ttwo,three\tfour\tfive,six" | awk -F , '{print $2}'
+        #+END_SRC
+	#+BEGIN_SRC awk
+	echo -e "one,,two" | awk -F , '{print $2}' #Output is empty because field 2 is empty
+	#+END_SRC
+        #+BEGIN_SRC awk
+	echo -e ",two,three" | awk -F , '{print $2}'
+	#+END_SRC
+    + You can define your own Field Separator
+      #+BEGIN_SRC awk
+      echo "oneABCtwoABCthree" | awk -F ABC '{print $2}'
+      #+END_SRC
+    + And, you can define RegExp as Field Separators
+      #+BEGIN_SRC awk
+      echo "one two three" | awk '{print $2}' 
+      echo "one,two,three" | awk '{print $2}'  # Field $2 does not exist 
+      echo "one,two,three" | awk '{print $1}'  # Field $1 does exist
+      #+END_SRC
+      Defining Field
+      #+BEGIN_SRC awk
+      echo "one\!two,three" | awk -F '[,!]' '{print $2}'
+      #+END_SRC
+      or
+      #+BEGIN_SRC awk
+      echo "one,two,three" | awk -F '[,!]' '{print $2}'
+      #+END_SRC
+      or, to bypass Bash
+      #+BEGIN_SRC awk
+      awk -F '[,!]' '{print $2}'
+      one!two,three            #Enter this
+      #+END_SRC
+    + Field Separators (FS) can be specified within an AWK program
+      #+BEGIN_SRC awk
+      awk 'BEGIN{FS=","} {print $2}' or awk 'BEGIN{FS=","};{print $2}'
+      "one,two,three"          #Enter this
+      "four,five,six"          #Enter this
+      #+END_SRC
+  + Defining Records in AWK
+    #+BEGIN_SRC awk
+    echo -e "\
+    Student01Name\nStudent01Address\nStudent01City, Student01State Student01ZIPNumber\n\n\
+    Student02Name\nStudent02Address\nStudent02City, Student02State Student02ZIPNumber\n\n\
+    Student03Name\nStudent03Address\nStudent03City, Student03State Student03ZIPNumber\n\n\
+    Student04Name\nStudent04Address\nStudent04City, Student04State Student04ZIPNumber\n\n\
+    Student05Name\nStudent05Address\nStudent05City, Student05State Student05ZIPNumber\n\n\
+    Student06Name\nStudent06Address\nStudent06City, Student06State Student06ZIPNumber\
+    " > StudentsData.txt
+    
+    cat StudentsData.txt
+    
+    cat StudentsData.txt | \
+    awk 'BEGIN{RS="";FS="\n"}{name=$1;address=$2;citystatezip=$3;print name "," address "," citystatezip}'
+    #+END_SRC
+  + Double spacing a file
+    #+BEGIN_SRC awk
+    ln -s /vol_b/Shared/T08_Unix103/Hsapiens_Minimal.Bed .
+    ln -s /vol_b/Shared/T08_Unix103/Hsapiens_Minimal_01.Bed .
+    ln -s /vol_b/Shared/T08_Unix103/Hsapiens_Minimal_02.Bed .
+    cat Hsapiens_Minimal.Bed
+    awk '1;{print ""}' Hsapiens_Minimal.Bed | less -S
+    awk 'BEGIN{ORS="\n\n"};1' Hsapiens_Minimal.Bed | less -S
+  #+END_SRC
++ Triple space a file
+  #+BEGIN_SRC awk
+  awk '1;{print "\n"}' Hsapiens_Minimal.Bed | less -S
+  awk '1;{print "\n"}' Hsapiens_Minimal_02.Bed > Hsapiens_Minimal_03.Bed
+  #+END_SRC
++ Precede each line by its line number FOR THAT FILE (left
+  alignment). Using a tab (\t) instead of space will preserve margins
+  #+BEGIN_SRC awk
+  awk '{print FNR "\t" $0}' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC
++ Precede each line by its line number FOR ALL FILES TOGETHER, with tab
+  #+BEGIN_SRC awk
+  awk '{print NR "\t" $0}' Hsapiens_Minimal*.Bed | less -S
+  #+END_SRC
++ Count lines (emulates "wc -l")
+  #+BEGIN_SRC awk
+  awk 'END{print NR}' Hsapiens_Minimal_01.Bed
+  #+END_SRC
++ Delete ALL blank lines from a file (same as "grep '.' ")
+  #+BEGIN_SRC awk
+  awk NF Hsapiens_Minimal_01.Bed | less -S
+  awk NF Hsapiens_Minimal_02.Bed | less -S
+  awk NF Hsapiens_Minimal_03.Bed | less -S
+  awk '/./' Hsapiens_Minimal_01.Bed | less -S
+  awk '/./' Hsapiens_Minimal_02.Bed | less -S
+  awk '/./' Hsapiens_Minimal_03.Bed | less -S
+  #+END_SRC
++ Print first 10 lines of file (emulates behavior of "head")
+  #+BEGIN_SRC awk
+  awk 'NR < 11' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC
++ Print first line of file (emulates "head -1")
+  #+BEGIN_SRC awk
+  awk 'NR>1{exit};1' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC
++ Print the last 2 lines of a file (emulates "tail -2")
+  #+BEGIN_SRC awk
+  awk '{y=x "\n" $0; x=$0};END{print y}' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC awk
++ Print the last line of a file (emulates "tail -1")
+  #+BEGIN_SRC awk
+  awk 'END{print}' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC
++ Print only lines which match regular expression (emulates "grep")
+  #+BEGIN_SRC awk
+  awk '/ENSG00000227232/' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC
++ Print only lines which do NOT match regex (emulates "grep -v")
+  #+BEGIN_SRC awk
+  awk '!/ENSG00000227232/' Hsapiens_Minimal_01.Bed | less -S
+  #+END_SRC
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |
+
+# NEXTLECTURE------------
+# https://catonmat.net/blog/wp-content/uploads/2008/09/awk1line.txt
+# + *Scripting101*
+# : for i in $(cat list.txt);do echo $i;done
+# : for i in $(cat list.txt);do whois $i;done
+# : for i in $(cat list.txt);do whois $i;done | grep -i "china"
+# : for i in $(cat list.txt | head -4);do ping -c 1 $i;done
+# : for i in $(cat list.txt | head -4);do ping -c 1 $i;done | grep "PING"
+# *Understanding Bash script syntax*
+
+# ------------
+# + *Making the script "read" files:*
+#  + Generate a file called "02file.sh" containing:
+#   ```sh
+#   #!/bin/bash
+#   args=("$@");
+#   FILENAME00=${args[0]}
+#   FILENAME01=${args[1]}
+#   FILENAME02=${args[2]}
+
+#   echo $FILENAME00
+#   echo $FILENAME01
+#   echo $FILENAME02
+
+#   exit 0
+#   ```

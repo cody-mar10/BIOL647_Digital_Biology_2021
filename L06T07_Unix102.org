@@ -1,0 +1,310 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Unix102*
+** *System Information Commands*
+: Date        # Date the computer was set to...
+: uptime      # Reports the time the system is on
+: users       # Displays the users log into the system
+: who         # Displays the number of connections of the users log into the system
+: uname -ap   # Displays the system info
+** *Disk Information Commands*
+: df    # Disk Free Space
+: df -h # Humanized and size calculaated as base2 <-Preferred as it is more compatible
+: df -H # Humanized and size is calculated as base10
+
+: du          # Disk Usage
+: du -h       # Humanized
+: du -ha      # Humanized and all files
+: du -hd 1    # Depth option of one
++ *df* Displays size set aside by the system on a Hard Drive (blocks)
++ Compare *du -hd 1* with *ls -alh*
++ Allocation of a file versus size of a file
+** *Viewing Processes*
+: Bash --> Kernel --> Memory Allocation + Runs Process, Completes Process --> Informs BASH Process is done
++ Process can be very short or very long
++ Process can be background process
+: ps          # Only own by me
+: ps a        # All user processes. Note that ps -a and ps a might not be equivalent
+: ps aux      a(show me ALL processes) 
+:             u(include the USER that is running the process) 
+:             x(show me the background processes
+** *Monitoring Processes*
+: top
+: top -n 10 -U username
+: top and then ?
+: top and then U
+: htop
+** *Stopping Processes*
++ Process ID identification
++ kill versus kill -9
+: kill        # 'Natural' kill
+: kill -9     # Force kill (this is brutal...)
+** *Utility Programs*
++ *cal/ncal: Calendar*
+: cal
+: cal 12 2021
+: cal 2000
+: ncal
++ *bc: Bench Calculator*
+: bc
+:   1000/9
+:   scale=10
+:   1000/9
+: bc -l # Precission
++ *expr: Expression Evaluator*
+: expr 1+1          # <-Does Not work (entire argument)
+: expr 1 + 1        # Does work (separate arguments)
+: expr 1133 * 2245  # <-Does Not work (* is a wild-card and has special meaning)
+: expr 1133 \* 2245 # <-Does work (escaped characters)
+: expr 24 = 34
+: expr 24 = 244
++ *units: Unit Conversion*
+: units # foot to meter, degF to degC
+: control + c to quit
+: units '37 degC' 'degF'
+** *Text File Helpers*
++ *Text Files, Microsoft Word Files are NOT TEXT Files*
++ *wc*
+: wc # Word Count (lines/words/characters)
+: wc -l versus wc -c
++ *sort*
+: sort        # Sort lines
+: sort -r     # Reverse
+: sort -n     # Numerical
+: sort -f     # Ignore case
+: sort -u     # Unique
++ *uniq*
+: uniq        # Filter in/out repeated lines
+: uniq -d     # Returns repeated lines
+: uniq -u     # Returns unduplicated lines
+** *Removing Characters*
+: mkdir T07_Unix102 && cd T07_Unix102
+: ll / > root.txt
+: cat root.txt | cut -c 2-10            #<-Character cut
+: cat root.txt | cut -c 2-10,30-35      #<-Character cut
+: cat root.txt | cut -c 2-10,30-35,45-  #<-Character cut
+** *Translating Characters*
+: echo "a,b,c" | tr "," "-"
+: echo "1234564321" | tr "123456" "EBGDAE"
+: echo "12345643219" | tr "123456" "EBGDAE"
+: echo "This is ROT-13 encrypted" | tr "A-Za-z" "N-ZA-Mn-za-m"
+: echo "Guvf vf EBG-13 rapelcgrq" | tr "A-Za-z" "N-ZA-Mn-za-m"
+: echo "already daytime" | tr "day" "night" <-Not Find and Replace
+: echo "Ban Tan Cat Tac Dog Got" | tr "[:upper:]" "[:lower:]"
+: echo "Ban Tan Cat Tac Dog Got" | tr "[A-Z]" "[a-z]"
+: echo "Ban,Tan,Cat,Tac,Dog,Got" | tr "[,]" "[\t]"
+: echo "Ban,Tan,Cat,Tac,Dog,Got" | tr "[,]" "[\t]" | cat -t
+: echo "Ban,Tan,Cat,Tac,Dog,Got" | tr "[,]" "[\t]" | cat -te
+** *Deleting and Squeezing Characters*
+: | Option | Description                          |
+: | -d     | Delete characters                    |
+: | -s     | Squeeze characters                   |
+: | -c     | Use complementa set                  |
+: | -dc    | Delete characters not in listed set  |
+: | -sc    | Squeeze characters not in listed set |
+: 
+: echo "abc123333deee4567fg" | tr -d "[:digit:]"                <-Delete Digits (not letters)
+: echo "abc123333deee4567fg" | tr -dc "[:digit:]"               <-Delete Complement Digits (letters)
+: 
+: echo "abc123333deee4567fg" | tr -s "[:digit:]"                <-Squeeze digits
+: echo "abc123333deee4567fg" | tr -sc "[:digit:]"               <-Squeeze Complement Digits
+: 
+: echo "abc123333deee4567fg" | tr -ds "[:digit:]" "[:alpha:]"   <-Translate Digits to Letters
+: echo "abc123333deee4567fg" | tr -dsc "[:digit:]" "[:alpha:]"  <-Translate Squeeze Complement Digits to Letters
+** *About Tables, Sorting and Uniquifying*
+   | [[./00Data/L06/Tables01.png]] |
+   | [[./00Data/L06/Tables02.png]] |
+   | [[./00Data/L06/Tables03.png]] |
+** *Comparing Files*
+*** *Checking Differences with diff, and sdiff*
+    |---------+---------+-----------|
+    | test01  | test02  | test03    |
+    |---------+---------+-----------|
+    | apples  | apples  | oranges   |
+    | oranges | oranges | walnuts   |
+    | walnuts | grapes  | chestnuts |
+    |---------+---------+-----------|
+    #+BEGIN_SRC sh
+      echo -e "apples\noranges\nwalnuts" > test01
+      echo -e "apples\noranges\ngrapes" > test02
+      echo -e "walnuts\ngrapes\nchestnuts" > test03
+      $ diff test01 test02
+	3c3
+	< walnuts
+	--
+	> grapes
+      $ sdiff test01 test02
+        apples     apples
+        oranges    oranges
+        walnuts    | grapes
+      #+END_SRC
+    + The diff command displays the only line that differs between the
+      two files. To understand the report, remember that diff is
+      prescriptive, describing what changes need to be made to the
+      first file to make it the same as the second file. This report
+      specifies that only the third line is affected, exchanging
+      walnuts for grapes
+    + If you compare the first and third files, you find more differences:
+      #+BEGIN_SRC sh
+      $ diff test01 test03
+        1dO
+        < apples
+        3a3
+        > chestnuts
+      $ sdiff test01 test03
+        apples	      <
+        oranges	      <
+        walnuts		walnuts
+        	      >	grapes
+        	      >	chestnuts
+      #+END_SRC
+    + To make test01 the same as test03, you’d have to delete the first
+      line (apples) and append the third line from test03 after the
+      third line in test01
+** *Compiling Software*
+*** *Compiling_GnuPG*
++ [[https://gnupg.org/index.html][GnuPG]]
+  + Note that ~username~ = ~Your Username~
+: cd
+: mkdir -p /home/username/Documents/codecache && cd ./Documents/codecache
+: wget https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.27.tar.bz2
+: wget https://gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.27.tar.bz2.sig
+: gpg --list-keys
+: gpg --list-secret-keys
+: cp /home/zzSharedDataDigiBio/gnupg_public_signature .
+: gpg --import ./gnupg_public_signature
+: gpg --list-keys
+: gpg --list-secret-keys
+: gpg --verify gnupg-2.2.27.tar.bz2.sig gnupg-2.2.27.tar.bz2g   #<-Verifying signature
+  + [[https://gnupg.org/signature_key.html][GNU_SIGNATURE]]
+: gpg --recv-key 6DAA6E64A76D2840571B4902528897B826403ADA
+: tar -xjvf gnupg-2.2.27.tar.bz2                                #<-Untaring and extracting code
+: cd gnupg-2.2.27
+: ./configure --prefix=/home/username/Software                  #<-Use YOUR username!
+: make                                                          # Before issuing this command
+:                                                                # make sure ./configure was successful
+: make check                                                    #<-Or 'test' for some programs
+: make install
+: cd /home/username/Software
+: ll or tree -L 2
+: gpg --version                                                 #<-Version System gpg
+: ./bin/gpg --version                                           #<-Version Our gpg
++ Testing our =gpg=
+: cd
+: cd ./Documents
+: echo "Testing gpg" > test.txt
+: /home/username/Software/bin/gpg -c test.txt
++ If you would want to make this your default =gpg= copy, then add you would add the following to the *.bash_profile*
+    : export PATH=/home/username/Software/bin:$PATH
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |
+# * 
+# ####################################################################################################
+# *Using the command History*
+# + All info is stored in the *.bash_history* file
+# : history
+# : history !(number of the command we wish to execute)
+# : !-(number of the command ago, we wish to run)
+# + This is a moving target
+# : !! # same as !-1. Very useful command
+# : !$ # Calls the arguments to the entire last command
+# : history -d (line number)
+# : history -c # clears ALL history
+# *Standard Input and Standard Output*
+# + Files live in /dev
+# : stdin       # Input
+# : stdout      # Output
+# *Directing Output to a file*
+# + Default output is the screen
+# : cat file
+# : cat file > newfile
+# : banner "TAMU"
+# : banner "TAMU" > tamu.txt
+# *Appending Output to a file*
+# + The difference between *>* versus *>>*
+# *Directing Input from a file*
+# + Generate a file containing unique and repeated values
+# : wc file versus wc < file versus cat file | wc
+# + Generate a file containing a numerical expression (NE)
+# : echo "NE" | bc versus bc < NE versus cat NE | bc
+# *Piping Output to Input*
+# + Using the *|* (PIPE)
+# : echo "Hello World"
+# : echo "Hello World" | wc
+# : echo "2+2" | bc
+# *Suppressing Output*
+# + When you do not need the output
+# : redirect to /dev/null (/dev/null is a special device that is inactive)
+# : ls -al > /dev/null
+# : echo < /dev/null
+# *Profile, Login and Resource Files*
+# + /etc/profile # System files activated upon login to a Bash shell
+# + /home/username/   # Not visible
+#   + ~/.bash_profile
+#   + ~/.bashrc
+#   + ~/.bash_aliases
+#   + ~/.bash_logout
+#   + ~/.profile
+# + In ~/.bashrc
+# : if [ -f ~/.bash_aliases ]; then
+# :     . ~/.bash_aliases
+# : fi
+# *Setting Command Aliases*
+# : alias
+# : alias Hi='echo "Hello World"' # Pay attention to the 'pairing of quotes'
+# : Hi
+# : unalias Hi
+# + Aliases only last for the duration of the session *unless* you define them in the: *~/.bash_aliases* file (configuration file)
+# *Setting and exporting environmental variables*
+# : MYNAME='your name'
+# : echo $MYNAME
+# + To make these changes permanent put these variables in the *~/.bashrc or ~/.bash_profile* files
+# + To make this available to Bash and its subshells you need to *export* the environmental variable
+# : export MYNAME='your name' 
+# + Setting up *less* with the *-M* and the *-S* flags permanently
+# *Setting the PATH variable*
+# : echo $PATH
+# : which less
+# : PATH='' # Nullifies all PATHS
+# : less # Cannot be found
+# : /usr/bin/less
+# *Configuring history with variables*
+# + Look at the ~/.bashrc file HISTORY variables
+# : history
+# : export HISTTIMEFORMAT='%b %d %I:%M %p' # Using strftime format
+# : history
+# : export HISTIGNORE="history:pwd" # Ignored the history and the pwd commands
+# + [[http://strftime.net/][strftime]]
+# *Customizing the command prompt*
+# : echo $PS1
+# : \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
+# + Command Prompt Formatting Codes
+# | Code       | Output                                            |
+# | \u         | username                                          |
+# | \s         | current shell                                     |
+# | \w         | current working directory                         |
+# | \W         | basename of current working directory             |
+# | \d         | date in "weekday month day" format ("Tue Mar 22") |
+# | \D{format} | date in strftime format ("%Y-%m-%d")              |
+# | \A         | time in 24-hour HH:MM format                      |
+# | \t         | time in 24-hour HH:MM:SS format                   |
+# | \@         | time in 12-hour HH:MM am/pm format                |
+# | \T         | time in 12-hour HH:MM:SS format                   |
+# | \H         | hostname                                          |
+# | \h         | hostname up to first "."                          |
+# | \!         | history number of this command                    |
+# | \$         | when UID is 0 (root), a "#", otherwise a "$"      |
+# | \\         | a literal backslash                               |
+# + Play with *PS1="Code"*
+# *Logout file*
+# : # ~/.bash_logout: executed by bash(1) when login shell exits.
+# : 
+# : # when leaving the console clear the screen to increase privacy
+# : 
+# : if [ "$SHLVL" = 1 ]; then
+# :     [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+# : fi
+# + Whatever commands you add here will be executed when you log out

@@ -1,0 +1,122 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Mapping And Alignment*
+** *MAPPING WITH BWA: INTRODUCTION*
+   | [[./00Data/T13Data/BIOL647_E01/Slide49.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide50.png]] |
+   | [[./00Data/T13Data/BIOL647_E01/Slide51.png]] |
++ [[http://bio-bwa.sourceforge.net/][BWA]]
++ [[https://github.com/lh3/bwa][BWA-GITHUB]]
++ Sequence Alignment with BWA
+  + BWA can map low-divergent sequences against a large reference
+    genome, such as the human genome
+  + It consists of three algorithms:
+    1. BWA-backtrack (Illumina sequence reads up to 100bp)
+    2. BWA-SW
+    3. BWA-MEM
+  + BWA SW and MEM can map longer sequences (70bp to 1Mbp) and share
+    similar features such as long-read support and split alignment,
+    but BWA-MEM, which is the latest, is generally recommended for
+    high-quality queries as it is faster and more accurate
+  + BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads
++ Create Reference Index
+  : Usage:   bwa index [options] <in.fasta>
+  :  
+  : Options: -a STR    BWT construction algorithm: bwtsw, is or rb2 [auto]
+  :          -p STR    prefix of the index [same as fasta name]
+  :          -b INT    block size for the bwtsw algorithm (effective with -a bwtsw) [10000000]
+  :          -6        index files named as <in.fasta>.64.* instead of <in.fasta>.*
+  :  
+  : Warning: `-a bwtsw' does not work for short genomes, while `-a is' and
+  :          `-a div' do not work not for long genomes
+  #+BEGIN_SRC bash
+    cd /vol_b/DB2021_xx/Digibio
+    mkdir bwa_mapping
+    cp -v /vol_b/Shared/T13/BRCA2_WildType.fa ./bwa_mapping/
+    cp -v /vol_b/Shared/T13/BRCA2_WildType_PE_Run01*.fq ./bwa_mapping/
+    cd ./bwa_mapping
+  
+    bwa
+    conda activate bioinfosoft
+    conda install bwa
+    bwa
+  #+END_SRC
++ Make Index
+  : bwa index -a rb2 -p BRCA2_WildType.fa BRCA2_WildType.fa
+  #  : ./bwa-0.7.17/bwa index -a rb2 -p BRCA2_Allele01.fa BRCA2_Allele01.fa
+  #  : ./bwa-0.7.17/bwa index -a rb2 -p BRCA2_Allele02.fa BRCA2_Allele02.fa
++ Align to Reference Genome
+  + Use the Index:
+    : BRCA2_WildType.fa
+  + Use the following files:
+    : BRCA2_WildType_PE_Run01_1.fq
+    : BRCA2_WildType_PE_Run01_2.fq
+
+    : bwa mem -t 2 BRCA2_WildType.fa BRCA2_WildType_PE_Run01_1.fq BRCA2_WildType_PE_Run01_2.fq  > BRCA2_WildType_ReadsxBRCA2_WildType.sam
+*** *SAMTOOLS 101*
++ Modified from a Tutorial Developed by Aaron Quinlan (November 20, 2013)
+  #+BEGIN_SRC bash
+    samtools
+    conda activate bioinfosoft
+    conda install samtools
+    samtools
+  #+END_SRC
++ Viewing alignments
+  + The samtools ~view~ command is the most versatile tool in the
+    samtools package. It’s main function, not surprisingly, is to
+    allow you to convert the binary (i.e., easy for the computer to
+    read and process) alignments in the BAM file view to text-based
+    SAM alignments that are easy for humans to read and process.
+  + All ALignments
+    : samtools view BRCA2_WildType_ReadsxBRCA2_WildType.sam | more
+  + Only the first five
+    : samtools view BRCA2_WildType_ReadsxBRCA2_WildType.sam | head -n 5
+  + Counting number of alignments
+    : samtools view BRCA2_WildType_ReadsxBRCA2_WildType.sam | wc -l
+    #  : samtools view -X BRCA2_WildType_ReadsxBRCA2_WildType.sam | head -n 5
+  + View only header
+    : samtools view -H BRCA2_WildType_ReadsxBRCA2_WildType.sam
+  + View header + alignments
+    : samtools view -h BRCA2_WildType_ReadsxBRCA2_WildType.sam | more
++ Alignment Statistics
+  : samtools flagstat BRCA2_WildType_ReadsxBRCA2_WildType.sam
++ Capturing alignments
+  + The FLAG field in the SAM format encodes several key pieces of information regarding how an alignment aligned to the reference genome. 
+  + This information can be exploited to isolate specific types of alignments that we want to use in our analysis.
+  + For example, we often want to call variants solely from paired-end sequences that aligned “properly” to the reference genome.
+  + To ask the ~view~ command to report solely “proper pairs” we use the -f option and ask for alignments where the second bit is true (proper pair is true).
+    : samtools view -f 0x2 BRCA2_WildType_ReadsxBRCA2_WildType.sam
+  + How many properly paired alignments are there?
+    : samtools view -f 0x2 BRCA2_WildType_ReadsxBRCA2_WildType.sam | wc -l
+  + Now, let’s ask for alignments that are NOT properly paired. To do this, we use the -F option (note the capitalization to denote “opposite”).
+    : samtools view -F 0x2 BRCA2_WildType_ReadsxBRCA2_WildType.sam
+  + How many improperly paired alignments are there?
+    : samtools view -F 0x2 BRCA2_WildType_ReadsxBRCA2_WildType.sam | wc -l
++ Convert SAM to BAM
+  : samtools view -S -b sample.sam > sample.bam
+  : samtools view -S -b BRCA2_WildType_ReadsxBRCA2_WildType.sam > BRCA2_WildType_ReadsxBRCA2_WildType.bam
++ Sort BAM File
+  : samtools sort sample.bam -o sample.sorted.bam
+  : samtools sort BRCA2_WildType_ReadsxBRCA2_WildType.bam -o BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam
++ Create a bam index file
+  : samtools index BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam
++ SAMtools without a Reference Genome
+  : samtools tview BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam
++ SAMtools with a Reference Genome
+  : samtools tview BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam BRCA2_WildType.fa
+  + Type ? for help menu
++ View at a Specific Coordinate
+  : samtools tview BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam BRCA2_WildType.fa -p chromosome:coordinate
+  : samtools tview BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam BRCA2_WildType.fa -p BRCA2_WildType:10000
+  : samtools tview BRCA2_WildType_ReadsxBRCA2_WildType.sorted.bam BRCA2_WildType.fa -p BRCA2_WildType:59900
+*** *FACTORS THAT INFLUENCE MAPPABILITY*
+  + Extent of polymorphism
+  + Quality of sequence data
+  + Lengths of DNA molecules being sequenced compared with size of reference genome
+  + Degree of sequence repetition in regions of the genome to which the reads map
+*** *Scripting This Mapping*
+* 
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

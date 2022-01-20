@@ -1,0 +1,75 @@
+# #+TITLE: Digital Biology
+#+AUTHOR: Rodolfo Aramayo
+#+EMAIL: raramayo@tamu.edu
+#+STARTUP: align
+* *Introduction 102*
++ *[[https://hprcgalaxy.tamu.edu/][High Performance Research Computing]]*
+  + *Setting Up Your SuperComputer Account*
+    + Go to http://hprc.tamu.edu
+    + Go to the Account Services
+      + Log in with your net ID
+      + Click on New Basic
+      + Fill in the information:
+        : Use BIOL as the department
+        : Add course information
+        : If you already have another account. Staff will watch the SU allocations.
+        :  
+        : Use raramayo as the PI Net ID
+        : phone: 979-5750319
+        : email: raramayo@tamu.edu
+        :  
+        : SU defaults are 5K each. Leave as is
+    + Description
+      : Taking Dr. Aramayo's Digital Biology course: BIOL647
+    + Read the policies and agree
+    + Click the review/Edit
+    + Click that you will not use restricted software
+    + Click confirm
+    + HPRC staff will approve the accounts
++ *How to Request Help*
+  # + *If you run into problems with CYVERSE, please contact: CYVERSE_SUPPORT*
+  #  :    EMail: support@cyverse.org
+  #  :    Make sure to CC: raramayo@tamu.edu
+  #  :    Subject: DigiBio: (summarize your issue)
+  #  :    Message: Make sure to include:
+  #  :             Cyverse username and the machine and/or tool(s)
+  #  :             that is(are) giving you trouble
+  + *If you run into problems with Ada, please contact: TAMU_SC_Help_Desk*
+   :    EMail: help@hprc.tamu.edu
+   :    Make sure to CC: raramayo@tamu.edu
+   :    Subject: DigiBio: (summarize your issue)
+   :    Message: Make sure to include:
+   :             TAMU username (not UID) and the tool(s)
+   :             that is(are) giving you trouble
++ *Required Software*
+  + Windows
+    + [[https://mobaxterm.mobatek.net/][MobaXterm]] or [[https://www.putty.org/][Putty]]
+    + Java
+  + Mac
+    + Xcode.app 
+    + Java
+    + X11
++ *How to Connect From Your Computer*
+  + If on Windows please download and launch the free version of [[https://mobaxterm.mobatek.net/][MobaXterm]] or [[https://www.putty.org/][Putty]]
+  + If you are using a Mac please launch the terminal application
++ *Brief Discussion about Bootstrapping*
+  + Definition: Computing a technique of loading a program into a
+    computer by means of a few initial instructions which enable the
+    introduction of the rest of the program from an input device.
+  + Bootstrapping in Biology
+    + Typical examples of bootstrapping in Biology include but are not restricted to /translation/
+      + To produce a /Protein/, you need:
+        : mRNA + Ribosomes + tRNAs + AminoAcids
+        : mRNA = DNA + RNA Polymerase II (Protein)
+        : Ribosomes = RNA + Proteins
+        : RNA = DNA + RNA Polymerase I (Protein)
+        : Proteins = mRNA + Ribosomes + tRNAs + AminoAcids
+  + Bootstrapping in Digital Biology
+# + *SSHing Without Activating X11*
+#   : ssh username@tamu1.cyverse.org
+# + *SSHing Enabling X1*
+#   : ssh -Y username@tamu1.cyverse.org  #For macOS (preferably)
+#   : ssh -X username@tamu1.cyverse.org  #For MacOS and Other Systems
+*  
+| *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
+| *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |
