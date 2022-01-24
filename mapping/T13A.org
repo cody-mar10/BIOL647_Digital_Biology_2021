@@ -4,54 +4,54 @@
 #+STARTUP: align
 * *Mapping And Alignment*
 ** *Introduction*
-   | [[./00Data/T13Data/BIOL647_E01/Slide01.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide02.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide03.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide04.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide05.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide06.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide07.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide08.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide09.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide10.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide11.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide12.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide13.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide14.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide15.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide16.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide17.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide18.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide19.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide20.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide21.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide22.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide23.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide24.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide25.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide26.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide27.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide28.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide29.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide30.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide31.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide32.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide33.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide34.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide35.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide36.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide37.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide38.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide39.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide40.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide41.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide42.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide43.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide44.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide45.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide46.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide47.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide48.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide01.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide02.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide03.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide04.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide05.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide06.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide07.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide08.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide09.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide10.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide11.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide12.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide13.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide14.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide15.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide16.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide17.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide18.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide19.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide20.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide21.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide22.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide23.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide24.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide25.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide26.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide27.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide28.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide29.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide30.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide31.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide32.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide33.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide34.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide35.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide36.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide37.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide38.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide39.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide40.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide41.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide42.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide43.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide44.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide45.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide46.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide47.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide48.png]] |
 ** *Mapping Qualities When Considering Base Calling Errors*
 + Modified from the Mapping qualities Blog from David Tangs Blog
 + To model base calling errors we can use the Binomial distribution;
@@ -116,27 +116,27 @@
 
 ** *Fundamentals Of Small Reads Mapping*
 + *FIRST FUNDAMENTAL CONCEPT OF READ MAPPING*
-  | [[./00Data/T13Data/01_Alignments01.png]] |
+  | [[../00Data/T13Data/01_Alignments01.png]] |
 + *SECOND FUNDAMENTAL CONCEPT OF READ MAPPING*
-  | [[./00Data/T13Data/02_Alignments02.png]] |
+  | [[../00Data/T13Data/02_Alignments02.png]] |
 + *EXAMPLES OF CONCORDANT AND NON-CONCORDANT ALIGNMENTS*
-  | [[./00Data/T13Data/03_Alignments03.png]] |
+  | [[../00Data/T13Data/03_Alignments03.png]] |
 + *MATE-PAIRS 101*
-  | [[./00Data/T13Data/04_MatePairs101.png]] |
-+ *[[./00Data/T13Data/05_MatePairs102.pdf][MATE-PAIRS 102]]*
+  | [[../00Data/T13Data/04_MatePairs101.png]] |
++ *[[../00Data/T13Data/05_MatePairs102.pdf][MATE-PAIRS 102]]*
 + *[[https://www.ncbi.nlm.nih.gov/pubmed/24105367][USING MATE PAIRS: EXAMPLE01]]*
 + *[[https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-launches-first-in-world-mate-pair-sequencing-test-that-locates-breakpoints-of-chromosome-rearrangements/][USING MATE PAIRS: EXAMPLE02]]*
 + *LARGE INSERTIONS AND DELETIONS RULES*
   + *FIRST RULE OF READ MAPPING*
-    | [[./00Data/T13Data/06_Mapping01.png]] |
+    | [[../00Data/T13Data/06_Mapping01.png]] |
   + *SECOND RULE OF READ MAPPING*
-    | [[./00Data/T13Data/07_Mapping02.png]] |
+    | [[../00Data/T13Data/07_Mapping02.png]] |
   + *THIRD RULE OF READ MAPPING*
-    | [[./00Data/T13Data/08_Mapping03.png]] |
+    | [[../00Data/T13Data/08_Mapping03.png]] |
 ** *SAM format: a text-based standard for representing sequence alignments*
 + *[[http://samtools.github.io/hts-specs/SAMv1.pdf][FORMAT DEFINITION]]*
 + *SAM FLAGS 101*
-  | [[./00Data/T13Data/09_SAMFlags01.png]] |
+  | [[../00Data/T13Data/09_SAMFlags01.png]] |
 + FLAGS
   |-------+-----------------------------------------------------------------------------------------------------------------------------------------------|
   | Field | Description                                                                                                                                   |
@@ -226,20 +226,20 @@
      #    |            | Only present if SAM record is for an aligned read                                                                          |
      #    |------------+----------------------------------------------------------------------------------------------------------------------------|
 + *SAM FLAGS 102*
-  | [[./00Data/T13Data/10_SAMFlags02.png]] |
+  | [[../00Data/T13Data/10_SAMFlags02.png]] |
 + *SAM FLAGS 103*
-  | [[./00Data/T13Data/11_SAMFlags03.png]] |
+  | [[../00Data/T13Data/11_SAMFlags03.png]] |
 + *[[https://broadinstitute.github.io/picard/explain-flags.html][DECODING SAM FLAGS]]*
 + *Mandatory Fields in the SAM Format:*
-  | [[./00Data/T13Data/12.png]] |
+  | [[../00Data/T13Data/12.png]] |
 + *[[http://www.htslib.org/doc/samtools.html][MANUAL]]*
-+ *[[./00Data/T13Data/13_SAMTOOLSPaper.pdf][SAM_TOOLS]]*
++ *[[../00Data/T13Data/13_SAMTOOLSPaper.pdf][SAM_TOOLS]]*
   + *EDIT DISTANCE AND CIGAR REPRESENTATION*
-    | [[./00Data/T13Data/14.png]] |
-    | [[./00Data/T13Data/15.png]] |
-    | [[./00Data/T13Data/16.png]] |
-    | [[./00Data/T13Data/17.png]] |
-    | [[./00Data/T13Data/18.png]] |
+    | [[../00Data/T13Data/14.png]] |
+    | [[../00Data/T13Data/15.png]] |
+    | [[../00Data/T13Data/16.png]] |
+    | [[../00Data/T13Data/17.png]] |
+    | [[../00Data/T13Data/18.png]] |
 ** *Sequence Alignment Software*
    |-----------+--------------------+-----------------+-----------------------|
    | Aligner   | Approach           | Applications    | Availability          |
@@ -252,10 +252,10 @@
    | GSNAP     | hash-based (reads) | RNA-seq         | open-source           |
    |-----------+--------------------+-----------------+-----------------------|
 *** *KEY ALIGNMENT PAPERS*
-  + *[[./00Data/T13Data/19_BWA_Paper.pdf][BWA]]*
-  + *[[./00Data/T13Data/20_BOWTIE_Paper.pdf][Bowtie]]*
-  + *[[./00Data/T13Data/21_BOWTIE2_Paper.pdf][Bowtie2]]*
-  + *[[./00Data/T13Data/22_Skylake_Algorithm.pdf][Skylake Algorithm]]*
+  + *[[../00Data/T13Data/19_BWA_Paper.pdf][BWA]]*
+  + *[[../00Data/T13Data/20_BOWTIE_Paper.pdf][Bowtie]]*
+  + *[[../00Data/T13Data/21_BOWTIE2_Paper.pdf][Bowtie2]]*
+  + *[[../00Data/T13Data/22_Skylake_Algorithm.pdf][Skylake Algorithm]]*
 * 
 | *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
 | *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

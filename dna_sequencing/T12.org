@@ -27,20 +27,20 @@
 + [[https://www.ncbi.nlm.nih.gov/bioproject/PRJNA428526][Pervasive, coordinated protein level changes driven by transcript...]]
 ** *Small Reads Quality Control (QC) Files Fundamentals*
 *** *Single or Unpaired Reads:*
-| [[./00Data/T12Data/01_SRQC01.png]] |
+| [[../00Data/T12Data/01_SRQC01.png]] |
 *** *Paired Reads:*
 + *Unsplit Files:*
-  | [[./00Data/T12Data/02_SRQC02.png]] |
+  | [[../00Data/T12Data/02_SRQC02.png]] |
 + *Single Interleaved Files:*
-  | [[./00Data/T12Data/03_SRQC03.png]] |
+  | [[../00Data/T12Data/03_SRQC03.png]] |
 + *Split Files:*
-  | [[./00Data/T12Data/04_SRQC04.png]] |
+  | [[../00Data/T12Data/04_SRQC04.png]] |
 + *Split Files After Quality Control:*
-  | [[./00Data/T12Data/05_SRQC05.png]] |
+  | [[../00Data/T12Data/05_SRQC05.png]] |
   |--------------------------------|
   | *Which results in:*            |
   |--------------------------------|
-  | [[./00Data/T12Data/06_SRQC06.png]] |
+  | [[../00Data/T12Data/06_SRQC06.png]] |
 *** *Logical Steps:*
 + Download the sra file
 + Process Downloaded files with SRA Toolkit using *fastq-dump* either:
@@ -52,7 +52,7 @@
   + Count the number of reads
   + Make sure length is right
 + Run FastQC
-  | [[./00Data/T12Data/FastQC_seq_qual.png]] |
+  | [[../00Data/T12Data/FastQC_seq_qual.png]] |
   + [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/][FastQC_WebSite]]
   + [[https://www.youtube.com/watch?v=bz93ReOv87Y][Video]]
 + Compute Quality Statistics
@@ -67,12 +67,12 @@
 + Remove artifacts: Remove sequencing artifacts
 + Remove adaptors
   + Using *[[https://cutadapt.readthedocs.io/en/stable/][Cutadapt]]*
-    | [[./00Data/T12Data/cutadapt.png]] |
+    | [[../00Data/T12Data/cutadapt.png]] |
     + [[http://journal.embnet.org/index.php/embnetjournal/article/view/200][Cutadapt Removes Adapter Sequences From High-Throughput Sequencing Reads]]
     + [[https://cutadapt.readthedocs.io/en/stable/guide.html][Manual]]
   + Using *[[http://www.usadellab.org/cms/?page=trimmomatic][Trimmomatic]]*
-    | [[./00Data/T12Data/trimmomatic01.png]] |
-    | [[./00Data/T12Data/trimmomatic02.png]] |
+    | [[../00Data/T12Data/trimmomatic01.png]] |
+    | [[../00Data/T12Data/trimmomatic02.png]] |
     + [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4103590/][Trimmomatic: a flexible trimmer for Illumina sequence data]]
     + [[http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf][Manual]]
   + Using *[[https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/][Trim Galore]]*

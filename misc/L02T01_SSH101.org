@@ -8,7 +8,7 @@
   networked computers [[http://en.wikipedia.org/wiki/Secure_Shell][Source: Wikipedia]]
 + Most SSH connections are driven by [[http://www.openssh.com/][OpenSSH]]
 + Process:
-  | [[./00Data/L02/T01_SSH101/01.png]] |
+  | [[../00Data/L02/T01_SSH101/01.png]] |
 ------------
 * *About Using SSH Keys*
 + Why should we use SSH keys?
@@ -18,7 +18,7 @@
     + _Short_ passwords can be guessed easily by _brute force attacks_
     + This results increases the vulnerability of the machine
     + Cryptography comes to the rescue...
-      | [[./00Data/L02/T01_SSH101/02.jpg]] |
+      | [[../00Data/L02/T01_SSH101/02.jpg]] |
 + Fundamentals of Cryptography
   + User01 generates:
     + A ~Private Key (Privatekey01)~ and a ~Public Key (Publickey01.pub)~
@@ -34,7 +34,7 @@
   + For communication between computers, server holds the public key, you keep the private key
   + One Key versus Many Keys, considerations
 + Process:
-  | [[./00Data/L02/T01_SSH101/03.png]] |
+  | [[../00Data/L02/T01_SSH101/03.png]] |
 # *SSH Basics*
 #   + *[[http://www.lynda.com/Developer-Network-Administration-tutorials/What-SSH/189066/365614-4.html][SSH]]*
 #   + *[[http://www.lynda.com/Developer-Network-Administration-tutorials/Connecting-SSH-server-from-Mac-OS-X-Linux/189066/365616-4.html][Connecting to an SSH server from Mac OS X or Linux]]*
@@ -43,9 +43,9 @@
 #   + *[[http://www.lynda.com/Developer-Network-Administration-tutorials/Generating-key-pair-Mac-OS-X-Linux/189066/365619-4.html][Generating a key pair on Mac OS X or Linux]]*
 #   + *[[http://www.lynda.com/Developer-Network-Administration-tutorials/Connecting-SSH-server-from-Mac-OS-X-Linux-using-key/189066/365620-4.html][Connecting to an SSH server from Mac OS X and Linux using a key]]*
 + *About The "Man In The Middle" Attack*
-  | [[./00Data/L02/T01_SSH101/04.png]] |
+  | [[../00Data/L02/T01_SSH101/04.png]] |
 ** *SSH Logic*
-   | [[./00Data/L02/T01_SSH101/05_SSH_Logic.png]] |
+   | [[../00Data/L02/T01_SSH101/05_SSH_Logic.png]] |
 ** *SSH Into wolf00.cyverse.org*
 : $ Computer name: "wolf00.cyverse.org"
 : $ Username: "YourCYVERSEserName"

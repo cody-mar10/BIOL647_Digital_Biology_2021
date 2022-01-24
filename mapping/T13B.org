@@ -4,9 +4,9 @@
 #+STARTUP: align
 * *Mapping And Alignment*
 ** *MAPPING WITH BWA: INTRODUCTION*
-   | [[./00Data/T13Data/BIOL647_E01/Slide49.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide50.png]] |
-   | [[./00Data/T13Data/BIOL647_E01/Slide51.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide49.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide50.png]] |
+   | [[../00Data/T13Data/BIOL647_E01/Slide51.png]] |
 + [[http://bio-bwa.sourceforge.net/][BWA]]
 + [[https://github.com/lh3/bwa][BWA-GITHUB]]
 + Sequence Alignment with BWA

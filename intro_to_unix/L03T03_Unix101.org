@@ -24,10 +24,10 @@
   + *Write programs that do one thing and do it well*
   + *Write programs to work together*
   + *Write programs to handle text streams, because that is a universal interface*
-    | [[./00Data/L03/T01_Unix101/01.png]] |
+    | [[../00Data/L03/T01_Unix101/01.png]] |
 ** *Commands*
 + Anatomy:
-  | [[./00Data/L03/T01_Unix101/02.png]] |
+  | [[../00Data/L03/T01_Unix101/02.png]] |
 + Command Name
   + Options
     + -v, --version, -h, --help
@@ -51,14 +51,14 @@
   : whatis echo
 + How does the system *knows* where *echo* program is?
 ** *Variables*
-   | [[./00Data/L03/T01_Unix101/03.png]] |
-   | [[./00Data/L03/T01_Unix101/04.png]] |
-   | [[./00Data/L03/T01_Unix101/05.png]] |
-   | [[./00Data/L03/T01_Unix101/06.png]] |
-   | [[./00Data/L03/T01_Unix101/07.png]] |
-   | [[./00Data/L03/T01_Unix101/08.png]] |
-   | [[./00Data/L03/T01_Unix101/09.png]] |
-   | [[./00Data/L03/T01_Unix101/10.png]] |
+   | [[../00Data/L03/T01_Unix101/03.png]] |
+   | [[../00Data/L03/T01_Unix101/04.png]] |
+   | [[../00Data/L03/T01_Unix101/05.png]] |
+   | [[../00Data/L03/T01_Unix101/06.png]] |
+   | [[../00Data/L03/T01_Unix101/07.png]] |
+   | [[../00Data/L03/T01_Unix101/08.png]] |
+   | [[../00Data/L03/T01_Unix101/09.png]] |
+   | [[../00Data/L03/T01_Unix101/10.png]] |
 ** *The PATH Variable*
 + The way Unix manages where to find programs is by using the *PATH* variable or environmental parameter
   : echo $PATH
@@ -76,10 +76,10 @@
   : PATH=/home/username/bin:/home/username/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/username/software/bin # This adds a PATH
 ** *Basic Unix Documentation*
 + A "man page" is a text file containing a help document
-  | [[./00Data/L03/T01_Unix101/11.png]] |
+  | [[../00Data/L03/T01_Unix101/11.png]] |
 + Most commands have their own man page
-  | [[./00Data/L03/T01_Unix101/12.png]] |
-  | [[./00Data/L03/T01_Unix101/13.png]] |
+  | [[../00Data/L03/T01_Unix101/12.png]] |
+  | [[../00Data/L03/T01_Unix101/13.png]] |
 + Accessed with the *man* command
   + The layout of a man page follows certain conventions
     + Each man page is assigned a section # ((of a virtual UNIX manual) to which it belongs
@@ -88,18 +88,18 @@
     + The -M option can force man to read pages installed in non-default locations
       : $ man ssh
       : $ man rsync
-  | [[./00Data/L03/T01_Unix101/14.png]] |
+  | [[../00Data/L03/T01_Unix101/14.png]] |
 + Listing Directory Contents
-  | [[./00Data/L03/T01_Unix101/15.png]] |
+  | [[../00Data/L03/T01_Unix101/15.png]] |
 + Changing Directories
-  | [[./00Data/L03/T01_Unix101/16.png]] |
-  | [[./00Data/L03/T01_Unix101/17.png]] |
+  | [[../00Data/L03/T01_Unix101/16.png]] |
+  | [[../00Data/L03/T01_Unix101/17.png]] |
 + Moving or Re-naming Files
-  | [[./00Data/L03/T01_Unix101/18.png]] |
+  | [[../00Data/L03/T01_Unix101/18.png]] |
 + Deleting Files
-  | [[./00Data/L03/T01_Unix101/19.png]] |
+  | [[../00Data/L03/T01_Unix101/19.png]] |
 + Copying Files
-  | [[./00Data/L03/T01_Unix101/20.png]] |
+  | [[../00Data/L03/T01_Unix101/20.png]] |
 ** *Other Useful Commands*
 + *type* Display's a command type:
   : $ type [command]
@@ -125,9 +125,9 @@
   : $ ln [options] [target] [link name]
   : $ ln -s foo foolink
 ** *[[http://www.tldp.org/LDP/abs/html/io-redirection.html][Redirection:]] (Standard IN/OUT/ERR)*
-   | [[./00Data/L03/T01_Unix101/21.png]] |
+   | [[../00Data/L03/T01_Unix101/21.png]] |
 + *OPERATORS*
-  | [[./00Data/L03/T01_Unix101/22.png]] |
+  | [[../00Data/L03/T01_Unix101/22.png]] |
 + *COMMAND_OUTPUT >*
   + Redirect stdout to a file
   + Creates the file if not present, otherwise overwrites it
@@ -157,8 +157,8 @@
   + Replaces "*stdin*" with myfiles:
     : $ ls < myfiles
 ** *Combining Commands (Piping)*
-   | [[./00Data/L03/T01_Unix101/23.png]] |
-   | [[./00Data/L03/T01_Unix101/24.png]] |
+   | [[../00Data/L03/T01_Unix101/23.png]] |
+   | [[../00Data/L03/T01_Unix101/24.png]] |
 + Passes output from cmd1 to cmd2:
   : $ cmd1 | cmd2
 + First executes cmd1, then cmd2:
@@ -169,20 +169,20 @@
 + Executes cmd2 only on cmd1 fail
   : $ cmd1 || cmd2
 ** *The UNIX Filesystem*
-   | [[./00Data/L03/T01_Unix101/25.png]] |
-   | [[./00Data/L03/T01_Unix101/26.png]] |
-   | [[./00Data/L03/T01_Unix101/27.png]] |
+   | [[../00Data/L03/T01_Unix101/25.png]] |
+   | [[../00Data/L03/T01_Unix101/26.png]] |
+   | [[../00Data/L03/T01_Unix101/27.png]] |
   : $ cd /
   : $ tree
   : tree -df
 + A Closer Look at  the *ls* Command
-   | [[./00Data/L03/T01_Unix101/28.png]] |
+   | [[../00Data/L03/T01_Unix101/28.png]] |
 + File Ownership  and Permissions
-  | [[./00Data/L03/T01_Unix101/29.png]] |
-  | [[./00Data/L03/T01_Unix101/30.png]] |
+  | [[../00Data/L03/T01_Unix101/29.png]] |
+  | [[../00Data/L03/T01_Unix101/30.png]] |
   + [[http://ss64.com/bash/chmod.html][Permissions]]
 + The *chmod* Command
-  | [[./00Data/L03/T01_Unix101/31.png]] |
+  | [[../00Data/L03/T01_Unix101/31.png]] |
 + Disk Space
   : du
   : du -hd 0 .
@@ -199,11 +199,11 @@
   : source ~/.bashrc
   : . ~/.bashrc
 ** *Process Signals*
-   | [[./00Data/L03/T01_Unix101/32.png]] |
-   | [[./00Data/L03/T01_Unix101/33.png]] |
-   | [[./00Data/L03/T01_Unix101/34.png]] |
-   | [[./00Data/L03/T01_Unix101/35.png]] |
-   | [[./00Data/L03/T01_Unix101/36.png]] |
+   | [[../00Data/L03/T01_Unix101/32.png]] |
+   | [[../00Data/L03/T01_Unix101/33.png]] |
+   | [[../00Data/L03/T01_Unix101/34.png]] |
+   | [[../00Data/L03/T01_Unix101/35.png]] |
+   | [[../00Data/L03/T01_Unix101/36.png]] |
 * 
 | *Navigation:*             | *[[https://github.tamu.edu/DigitalBiology/BIOL647_Digital_Biology_2021/wiki][Home]]*                                                                       |
 | *Author: [[raramayo@tamu.edu][Rodolfo Aramayo]]* | *License: [[http://creativecommons.org/licenses/by-nc-sa/4.0/][All content produced in this site is licensed by: CC BY-NC-SA 4.0]]* |

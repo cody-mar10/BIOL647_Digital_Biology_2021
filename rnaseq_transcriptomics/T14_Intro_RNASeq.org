@@ -3,10 +3,10 @@
 #+EMAIL: raramayo@tamu.edu
 #+STARTUP: align
 * *Introduction to RNASeq*
-** *[[.//00Data/T14Data/01_Seq_strategies_new.pdf][Practical Strategies for Sequencing]]*           
-** *[[.//00Data/T14Data/02_RNASeq_Lib_prep.pdf][RNASeq Library Preparation]]*                    
+** *[[.../00Data/T14Data/01_Seq_strategies_new.pdf][Practical Strategies for Sequencing]]*           
+** *[[.../00Data/T14Data/02_RNASeq_Lib_prep.pdf][RNASeq Library Preparation]]*                    
 ** *General Outline*
-  | [[./00Data/T14Data/outline.png]] |
+  | [[../00Data/T14Data/outline.png]] |
 ** *Introduction_to_ Experimental_design*
   :PROPERTIES:
   :CUSTOM_ID: introduction_to_ Experimental_design
@@ -101,7 +101,7 @@
    :END:
 
    Experimental replicates can be performed as *technical replicates* or *biological replicates*.
-   | [[./00Data/T14Data/replicates.png]] |
+   | [[../00Data/T14Data/replicates.png]] |
    /Image credit: [[https://dx.doi.org/10.15252/embj.201592958][Klaus B.,EMBO J (2015) *34*: 2727-2730]]/
    
    - *Technical replicates:* use the same biological sample to repeat the
@@ -135,7 +135,7 @@
    if all of our /control/ mice were female and all of the /treatment/ mice
    were male, then our treatment effect would be confounded by sex. *We
    could not differentiate the effect of treatment from the effect of sex.*
-   | [[./00Data/T14Data/confounded_design.png]] |
+   | [[../00Data/T14Data/confounded_design.png]] |
    
    *To AVOID confounding:*
    
@@ -144,7 +144,7 @@
    
    - If not possible, then ensure to split the animals equally between
      conditions
-     | [[./00Data/T14Data/non_confounded_design.png]] |
+     | [[../00Data/T14Data/non_confounded_design.png]] |
    
 *** Batch effects
    :PROPERTIES:
@@ -153,7 +153,7 @@
    
    Batch effects are a significant issue for RNA-seq analyses, since you
    can see significant differences in expression due solely to batch.
-   | [[./00Data/T14Data/batch_effect_pca.png]] |
+   | [[../00Data/T14Data/batch_effect_pca.png]] |
    /Image credit: [[https://www.biorxiv.org/content/early/2015/08/25/025528][Hicks SC, etal., bioRxiv (2015)]]/
    
 **** How to know whether you have batches?
@@ -187,20 +187,20 @@
     - If unable to avoid batches:
     
       - *Do NOT confound* your experiment by batch:
-        | [[./00Data/T14Data/confounded_batch.png]] |
+        | [[../00Data/T14Data/confounded_batch.png]] |
         /Image credit: [[https://www.biorxiv.org/content/early/2015/08/25/025528][Hicks SC, et al., bioRxiv (2015)]]/
     
       - *DO* split replicates of the different sample groups across batches.
         The more replicates the better (definitely 3 or more).
-        | [[./00Data/T14Data/batch_effect.png]] |
+        | [[../00Data/T14Data/batch_effect.png]] |
         /Image credit: [[https://www.biorxiv.org/content/early/2015/08/25/025528][Hicks SC, et al., bioRxiv (2015)]]/
     
       - *DO* include batch information in your *experimental metadata*.
         During the analysis, we can regress out the variation due to batch
         so it doesn't affect our results if we have that information.
-        | [[./00Data/T14Data/metadata_batch.png]] |
+        | [[../00Data/T14Data/metadata_batch.png]] |
 ** *Experimental Replicates*
-  | [[./00Data/T14Data/de_replicates_img.png]] |
+  | [[../00Data/T14Data/de_replicates_img.png]] |
   /Image credit: [[https://doi.org/10.1093/bioinformatics/btt688][Liu, Y.,et al., Bioinformatics (2014) *30*(3): 301-304]]/
   
   As the figure above illustrates, *biological replicates are of greater
@@ -260,7 +260,7 @@
    
    Once the count data is filtered, the next step is to perform the
    differential expression analysis.
-   | [[./00Data/T14Data/deseq_workflow_full.png]] |
+   | [[../00Data/T14Data/deseq_workflow_full.png]] |
    Internally, DESeq2 is performing a number of steps but here we will
    focus on describing the count modeling and hypothesis testing. Modeling
    is a mathematically formalized way to approximate how the data behaves
@@ -274,10 +274,10 @@
    To determine the appropriate statistical model, we need information
    about the distribution of counts. To get an idea about how RNA-seq
    counts are distributed, we can plot the counts for a single sample:
-   | [[./00Data/T14Data/deseq_counts_distribution.png]] |
+   | [[../00Data/T14Data/deseq_counts_distribution.png]] |
    If we *zoom in close to zero*, we can see that there are a large number
    of genes with counts of zero:
-   | [[./00Data/T14Data/deseq_counts_distribution_zoomed.png]] |
+   | [[../00Data/T14Data/deseq_counts_distribution_zoomed.png]] |
    These images illustrate some common features of RNA-seq count data:
    
    - a *low number of counts associated with a large proportion of genes*
@@ -337,7 +337,7 @@
    In the figure below we have plotted the mean against the variance for
    three replicate samples in a study. Each data point represents a gene
    and the red line represents x = y.
-   | [[./00Data/T14Data/deseq_mean_vs_variance.png]] |
+   | [[../00Data/T14Data/deseq_mean_vs_variance.png]] |
    There's two things to note here:
    
    1. The *variance across replicates tends to be greater than the mean*
@@ -382,7 +382,7 @@
    expressed, there is also much variability between tools. 
    
    *Additionally, there is no one method that performs optimally under all conditions ([[https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-91][Soneson and Dleorenzi, 2013]]).*
-   | [[./00Data/T14Data/deg_methods1.png]] | [[./00Data/T14Data/deg_methods2.png]] |
+   | [[../00Data/T14Data/deg_methods1.png]] | [[../00Data/T14Data/deg_methods2.png]] |
    Even as new methods are continuously being developed, there are a select
    few that are generally recommended as best practice. Here, we list and
    describe three of those: DESeq2, edgeR and Limma-voom.
@@ -453,12 +453,12 @@
    - series of time points
    
    *Why does it not work to identify differentially expressed genes by ranking the genes by how different they are between the two groups (based on fold change values)?*
-   | [[./00Data/T14Data/de_variation.png]] |
+   | [[../00Data/T14Data/de_variation.png]] |
    Because, more often than not *there is much more going on with your data
    than what you are anticipating*. The goal of differential expression
    analysis to determine the relative role of these effects, and to
    separate the "interesting" from the "uninteresting".
-   | [[./00Data/T14Data/de_norm_counts_var.png]] |
+   | [[../00Data/T14Data/de_norm_counts_var.png]] |
    For each gene, we are assessing whether the differences in expression
    (counts) between groups is significant given the amount of variation
    observed within groups (replicates).
@@ -495,7 +495,7 @@
     the sample groups that we are investigating*. Once we have identified
     those significant genes, *post-hoc clustering* can be applied to find
     groups of genes that share similar expression profiles.
-    | [[./00Data/T14Data/mov10_clusters.png]] |
+    | [[../00Data/T14Data/mov10_clusters.png]] |
     In the *DESeq2* package, the *Likelihood Ratio Test (LRT)* is
     implemented for the analayis of data in which there are more than two
     sample groups. This type of test can be especially useful in analyzing
@@ -569,7 +569,7 @@
   interest. Below is an overview of the analysis workflow that is
   followed for differential gene expression analysis with bulk RNA-seq
   data.
-  | [[./00Data/T14Data/full_workflow_2019.png]] |
+  | [[../00Data/T14Data/full_workflow_2019.png]] |
 *** QC on sequencing data
    :PROPERTIES:
    :CUSTOM_ID: qc-on-sequencing-data
@@ -677,7 +677,7 @@
     The "*Per base sequence quality*" plot is the most commonly used one and
     it provides the distribution of quality scores across all bases at each
     position in the reads.
-    | [[./00Data/T14Data/FastQC_seq_qual.png]] |
+    | [[../00Data/T14Data/FastQC_seq_qual.png]] |
 *** Expression quantification
    :PROPERTIES:
    :CUSTOM_ID: expression-quantification
@@ -685,7 +685,7 @@
    
    Once it has been determined that the read quality is good, the next step
    is to quantify gene expression.
-   | [[./00Data/T14Data/rnaseq_salmon_workflow.png]] |
+   | [[../00Data/T14Data/rnaseq_salmon_workflow.png]] |
    Tools that have been found to be most accurate for this step in the
    analysis are referred to as lightweight alignment tools, which include
    [[https://pachterlab.github.io/kallisto/about][Kallisto]], [[http://www.nature.com/nbt/journal/v32/n5/full/nbt.2862.html][Sailfish]] and [[https://combine-lab.github.io/salmon/][Salmon]]; each working slightly different from
@@ -712,7 +712,7 @@
    Once expression is quantified and counts are generated, the next step is
    more QC! The next few steps in the analysis are shown in the flowchart
    below.
-   | [[./00Data/T14Data/de_workflow_salmon_qc.png]] |
+   | [[../00Data/T14Data/de_workflow_salmon_qc.png]] |
 **** Normalization of count data
     :PROPERTIES:
     :CUSTOM_ID: normalization-of-count-data
@@ -735,7 +735,7 @@
       each gene appears to have doubled in expression in /Sample A/
       relative to /Sample B/, however this is a consequence of /Sample A/
       having double the sequencing depth.
-    | [[./00Data/T14Data/normalization_methods_depth.png]] |
+    | [[../00Data/T14Data/normalization_methods_depth.png]] |
       #+BEGIN_QUOTE
         NOTE: In the figure above, each pink and green rectangle
         represents a read aligned to a gene. Reads connected by dashed
@@ -747,7 +747,7 @@
       example, /Gene X/ and /Gene Y/ have similar levels of expression,
       but the number of reads mapped to /Gene X/ would be many more than
       the number mapped to /Gene Y/ because /Gene X/ is longer.
-      | [[./00Data/T14Data/normalization_methods_length.png]] |
+      | [[../00Data/T14Data/normalization_methods_length.png]] |
     - *RNA composition:* A few highly differentially expressed genes
       between samples, differences in the number of genes expressed
       between samples, or presence of contamination can skew some types of
@@ -762,7 +762,7 @@
       /Sample B/. Most other genes for /Sample A/ would be divided by the
       larger number of total counts and appear to be less expressed than
       those same genes in /Sample B/.
-      | [[./00Data/T14Data/normalization_methods_composition.png]] |
+      | [[../00Data/T14Data/normalization_methods_composition.png]] |
     *While normalization is essential for differential expression analyses, it is also necessary for QC, exploratory data analysis, visualization of data, and whenever you are exploring or comparing counts between or within samples.*
     
     #+BEGIN_QUOTE
@@ -815,7 +815,7 @@
      
      The 2 main methods utilized for this type of QC are Principal Component
      Analysis (PCA) and Hierarchical Clustering.
-     | [[./00Data/T14Data/sample_qc.png]] |
+     | [[../00Data/T14Data/sample_qc.png]] |
 ***** Gene-level QC
      :PROPERTIES:
      :CUSTOM_ID: gene-level-qc
@@ -831,7 +831,7 @@
     - Genes with zero counts in all samples
     - Genes with an extreme count outlier
     - Genes with a low mean normalized counts
-    | [[./00Data/T14Data/gene_filtering.png]] |
+    | [[../00Data/T14Data/gene_filtering.png]] |
     *Some statistical tools, e.g. DESeq2, used for identifying differentially expressed genes will perform this filtering by default; however other tools, e.g. EdgeR, will not.*
     
 *** Count modeling and statistical analysis
@@ -844,7 +844,7 @@
    differentially expressed genes. In this step we essentially want to
    determine whether the mean expression levels of different sample
    groups are significantly different.
-   | [[./00Data/T14Data/de_theory.png]] |
+   | [[../00Data/T14Data/de_theory.png]] |
    /Image credit: Paul Pavlidis, UBC/
    
 **** Some highlights of RNA-seq count data
@@ -919,7 +919,7 @@
   :PROPERTIES:
   :CUSTOM_ID: single-cell-rna-seq-analysis-workflow
   :END:
-  | [[./00Data/T14Data/sc_workflow.png]] |
+  | [[../00Data/T14Data/sc_workflow.png]] |
 *** Count matrix generation
    :PROPERTIES:
    :CUSTOM_ID: count-matrix-generation
@@ -937,10 +937,10 @@
    2. Demultiplexing the samples
    3. Pseudo-mapping to cDNAs
    4. Counting molecular identifiers
-   | [[./00Data/T14Data/sc_collapsing_umis.png]] |
+   | [[../00Data/T14Data/sc_collapsing_umis.png]] |
    The generation of the count matrix from the raw sequencing data follow
    the steps in the schematic below for many of the scRNA-seq methods.
-   | [[./00Data/T14Data/sc_pre-QC_workflow.png]] |
+   | [[../00Data/T14Data/sc_pre-QC_workflow.png]] |
    Following the generation of count matrix, the remaining steps can be
    performed using [[https://satijalab.org/seurat/#about-seurat][Seurat]], the R toolkit for single cell genomics. A
    tutorial for the remaining steps can be [[https://satijalab.org/seurat/v3.0/pbmc3k_tutorial.html][found here]], and requires a
@@ -981,7 +981,7 @@
    (t-SNE), Uniform Manifold Approximation and Projection (UMAP), and
    PCA. The goals of these methods is to have similar cells closer
    together in low-dimensional space.
-   | [[./00Data/T14Data/tSNE.png]] |
+   | [[../00Data/T14Data/tSNE.png]] |
 *** Marker identification
    :PROPERTIES:
    :CUSTOM_ID: marker-identification
@@ -991,7 +991,7 @@
    used to help identify the cell type of each cluster. Finally, after
    identification of cell types, there are various types of analyses that
    can be performed depending on the goal of the experiment.
-   | [[./00Data/T14Data/tSNE-labelled3.png]] |
+   | [[../00Data/T14Data/tSNE-labelled3.png]] |
 ** *Visualizing the Results of a DGE Experiment*
    :PROPERTIES:
    :CUSTOM_ID: visualizing-the-results-of-a-dge-experiment
@@ -1015,7 +1015,7 @@
      :PROPERTIES:
      :CUSTOM_ID: plotting-expression-of-a-single-gene-across-sample-groups
      :END:
-     | [[./00Data/T14Data/plotCounts_ggrepel.png]] |
+     | [[../00Data/T14Data/plotCounts_ggrepel.png]] |
 **** Plotting expression of multiple genes across sample groups :
      :PROPERTIES:
      :CUSTOM_ID: plotting-expression-of-multiple-genes-across-sample-groups
@@ -1029,7 +1029,7 @@
      are logged (log10) to ensure that the any large differences in
      expression are plotted without compromising the quality of the
      visualization.
-     | [[./00Data/T14Data/sig_genes_melt.png]] |
+     | [[../00Data/T14Data/sig_genes_melt.png]] |
 *** Heatmap
     :PROPERTIES:
     :CUSTOM_ID: heatmap
@@ -1038,7 +1038,7 @@
     In addition to plotting subsets, we could also extract the normalized
     values of /all/ the significant genes and plot a heatmap of their
     expression using =pheatmap()=.
-         | [[./00Data/T14Data/sigOE_heatmap.png]] |
+         | [[../00Data/T14Data/sigOE_heatmap.png]] |
     In this heatmap Z-scores are calculated for each row (each gene) and
     these are plotted instead of the normalized expression values; this
     ensures that the expression patterns/trends that we want to visualize
@@ -1061,7 +1061,7 @@
     plots. A commonly used one is a volcano plot; in which you have the
     log transformed adjusted p-values are plotted on the y-axis and log2
     fold change values on the x-axis.
-         | [[./00Data/T14Data/volcanoplot-2.png]] |
+         | [[../00Data/T14Data/volcanoplot-2.png]] |
 *** DEGreport
    :PROPERTIES:
    :CUSTOM_ID: degreport
@@ -1074,13 +1074,13 @@
    
    *Plot 1:* An easy and clean way to visualize expression of genes of
    interest.
-   | [[./00Data/T14Data/degreport_ind_genes.png]] |
+   | [[../00Data/T14Data/degreport_ind_genes.png]] |
    *Plot 2:* When performing DE analysis on several groups, e.g. a time
    course experiment, grouping together genes that have similar patterns
    of expression and visualizing these patterns can be very helpful. The
    =degPatterns()= function in the DEGreport package performs the
    analysis and creates a display with this information.
-   | [[./00Data/T14Data/DEGpatterns.png]] |
+   | [[../00Data/T14Data/DEGpatterns.png]] |
    /Images adapted from doi: [[https://f1000research.com/articles/6-1976/v2][10.12688/f1000research.12093.2]]./
    
    #+BEGIN_QUOTE

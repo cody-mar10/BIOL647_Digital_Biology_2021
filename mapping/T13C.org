@@ -20,7 +20,7 @@
   + [[http://bowtie-bio.sourceforge.net/manual.shtml][BOWTIE MANUAL]]
   + [[http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml][BOWTIE2 MANUAL]]
 *** *Bowtie*
-    | [[./00Data/T13Data/bowtie01.png]] |
+    | [[../00Data/T13Data/bowtie01.png]] |
 
   + Anatomy of an Example Hypothetical Bowtie command:
     : bowtie                = Program name
@@ -103,12 +103,12 @@
   + Bowtie Output:
     + The output of Bowtie is either a *SAM* or it binary equivalent *BAM* file
 *** *IMPORTANT MAPPING VERSUS MISMATCHES CONSIDERATIONS*
-    | [[./00Data/T13Data/23.png]] |
-    | [[./00Data/T13Data/24.png]] |
+    | [[../00Data/T13Data/23.png]] |
+    | [[../00Data/T13Data/24.png]] |
 *** *Bowtie2*
-    | [[./00Data/T13Data/bowtie02.png]] |
-    | [[./00Data/T13Data/bowtie03.png]] |
-    | [[./00Data/T13Data/bowtie04.png]] |
+    | [[../00Data/T13Data/bowtie02.png]] |
+    | [[../00Data/T13Data/bowtie03.png]] |
+    | [[../00Data/T13Data/bowtie04.png]] |
 *** *Commands Examples*
 **** *Building Bowtie Index Command*
      #+BEGIN_SRC bash

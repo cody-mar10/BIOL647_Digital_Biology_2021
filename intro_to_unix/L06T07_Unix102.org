@@ -114,9 +114,9 @@
 : echo "abc123333deee4567fg" | tr -ds "[:digit:]" "[:alpha:]"   <-Translate Digits to Letters
 : echo "abc123333deee4567fg" | tr -dsc "[:digit:]" "[:alpha:]"  <-Translate Squeeze Complement Digits to Letters
 ** *About Tables, Sorting and Uniquifying*
-   | [[./00Data/L06/Tables01.png]] |
-   | [[./00Data/L06/Tables02.png]] |
-   | [[./00Data/L06/Tables03.png]] |
+   | [[../00Data/L06/Tables01.png]] |
+   | [[../00Data/L06/Tables02.png]] |
+   | [[../00Data/L06/Tables03.png]] |
 ** *Comparing Files*
 *** *Checking Differences with diff, and sdiff*
     |---------+---------+-----------|

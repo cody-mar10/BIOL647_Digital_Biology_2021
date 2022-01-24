@@ -248,8 +248,8 @@
   + Each Record is a line of text (or a row)
   + A Record consists of a series of Fields
   + Fields are separated from each other by one or more white spaces, and/or TABs
-    | [[./00Data/L07/awk01.png]] |
-    | [[./00Data/L07/awk02.png]] |
+    | [[../00Data/L07/awk01.png]] |
+    | [[../00Data/L07/awk02.png]] |
 + AWK works best with text files
   #+BEGIN_SRC awk
   echo -e "\
