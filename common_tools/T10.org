@@ -8,13 +8,13 @@
 + *Gene Models 101*
   | [[https://upload.wikimedia.org/wikipedia/commons/1/12/DNA_exons_introns.gif]]                                                                                                                      |
   | Figure 1: An original piece of DNA containing introns and exons has the introns cut out before the exons are joined together to form the mRNA. (Image from WikiMedia, under the Public Domain) |
-  | [[.../00Data/T10T11Data/01.png]]                                                                                                                                                                     |
+  | [[../00Data/T10T11Data/01.png]]                                                                                                                                                                     |
 + *[[https://www.ensembl.org/Homo_sapiens/Gene/Summary?db=core;g=ENSG00000139618;r=13:32315474-32400266][BRCA2-ENSEMBL]]*
 + *[[https://www.ensembl.org/Homo_sapiens/Transcript/Exons?db=core;g=ENSG00000139618;r=13:32315474-32400266;t=ENST00000380152][BRCA2-Exons-ENSEMBL]]*
 + *[[https://www.ensembl.org/Homo_sapiens/Transcript/Sequence_cDNA?db=core;g=ENSG00000139618;r=13:32315474-32400266;t=ENST00000380152][BRCA2-cDNA-ENSEMBL]]*
 + *[[https://www.ensembl.org/Homo_sapiens/Transcript/Sequence_Protein?db=core;g=ENSG00000139618;r=13:32315474-32400266;t=ENST00000380152][BRCA2-Protein-ENSEMBL]]*
 + *Gene Tables 101*
-  | [[.../00Data/T10T11Data/02.png]] |
+  | [[../00Data/T10T11Data/02.png]] |
 ** *[[https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp][Fasta File Format]]*
 + FASTA originally stood for a fast algorithm that could align any letters
   (not just nucleotides or protein symbols), but came to represent the file
@@ -130,7 +130,7 @@ ctg123 . CDS             3391 3902  .  +  0  ID=cds00004;Parent=mRNA00003
 ctg123 . CDS             5000 5500  .  +  1  ID=cds00004;Parent=mRNA00003
 ctg123 . CDS             7000 7600  .  +  1  ID=cds00004;Parent=mRNA00003
 #+END_SRC
-| [[.../00Data/T10T11Data/gff3.png]] |
+| [[../00Data/T10T11Data/gff3.png]] |
 *** *03_ENST00000380152.7_BRCA2-201.gff3*
 #+BEGIN_SRC bash
 ##gff-version 3
@@ -396,7 +396,7 @@ compares two or more BED/BAM/VCF/GFF files and identifies all the
 regions in the gemome where the features in the two files overlap (that
 is, share at least one base pair in common).
 
-| [[.../00Data/T10T11Data/01_intersect-glyph.png]] |
+| [[../00Data/T10T11Data/01_intersect-glyph.png]] |
 
 **** Default behavior
    :PROPERTIES:
@@ -569,7 +569,7 @@ approaches as a function of dataset size in the figure below. The
 important thing to remember is that each dataset must be sorted by
 chromosome and then by start position: =sort -k1,1 -k2,2n=.-
 
-| [[.../00Data/T10T11Data/02_speed-comparo.png]] |
+| [[../00Data/T10T11Data/02_speed-comparo.png]] |
 
 **** Intersecting multiple files at once.
    :PROPERTIES:
@@ -651,7 +651,7 @@ overlap one another (e.g. aligments from a ChiP seq experiment). It is
 often useful to just cobine the overlapping into a single, contiguous
 interval. The bedtools =merge= command will do this for you.
 
-| [[.../00Data/T10T11Data/03_merge-glyph.png]] |
+| [[../00Data/T10T11Data/03_merge-glyph.png]] |
 
 **** Input must be sorted
    :PROPERTIES:
@@ -823,7 +823,7 @@ ChIP-seq peaks, you may also want to know which regions of the genome
 are not bound by the factor you assayed. The =complement= addresses this
 task.
 
-| [[.../00Data/T10T11Data/04_complement-glyph.png]] |
+| [[../00Data/T10T11Data/04_complement-glyph.png]] |
 
 As an example, let's find all of the non-exonic (i.e., intronic or
 intergenic) regions of the genome. Note, to do this you need a
@@ -861,7 +861,7 @@ frequently crucial when assessing the “uniformity” of coverage from
 whole-genome sequencing. This is done with the versatile =genomecov=
 tool.
 
-| [[.../00Data/T10T11Data/05_genomecov-glyph.png]] |
+| [[../00Data/T10T11Data/05_genomecov-glyph.png]] |
 
 As an example, let's produce a histogram of coverage of the exons
 throughout the genome. Like the =merge= tool, =genomecov= requires
